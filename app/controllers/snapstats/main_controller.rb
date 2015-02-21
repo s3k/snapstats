@@ -1,9 +1,10 @@
 module Snapstats
-  class MainController < ApplicationController
+	class MainController < ApplicationController
 
-  	def index
-  		render text: :ok
-  	end
+		def show
 
-  end
+		end
+
+	end
 end
+

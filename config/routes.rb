@@ -1,3 +1,8 @@
 Snapstats::Engine.routes.draw do
-	root to: 'main#index'
+	
+	root to: 'main#show'
+
+	resource :main
+	resource :performance
+	resource :user
 end

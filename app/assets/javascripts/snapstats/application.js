@@ -10,4 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+//= require ./jquery.min
+//= require ./d3.min
+//= require ./metricsgraphics.min
+//= require ./main
