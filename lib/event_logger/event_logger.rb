@@ -18,6 +18,8 @@ module Snapstats
       store_cpm
   		store_daily_activity
       store_daily_uniqs
+      
+      store_daily_platforms
       store_daily_browsers
 
   		# store_user_activity_table

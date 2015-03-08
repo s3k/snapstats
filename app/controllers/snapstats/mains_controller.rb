@@ -2,8 +2,10 @@ module Snapstats
 	class MainsController < ApplicationController
 
 		def show
-			@uniqs = EventReader::Uniqs.fetch_uniqs
-			@clicks = EventReader::Cpm.fetch_all_hash
+			@uniqs 			= EventReader::Uniqs.fetch_uniqs
+			@clicks 		= EventReader::Cpm.fetch_all_hash
+			@platforms 	= EventReader::Browsers.fetch_platforms
+			@browsers 	= EventReader::Browsers.fetch_browsers
 		end
 
 		def chart

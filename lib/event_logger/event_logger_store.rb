@@ -34,8 +34,12 @@ module Snapstats
       @redis.hincrby mday('uniq'), @payload[:ip], 1
     end
 
+    def store_daily_platforms
+      @redis.hset mday('platforms'), "#{@payload[:ip]}_#{@user_agent.platform}", @user_agent.platform
+    end
+
     def store_daily_browsers
-      @redis.hset mday('uniq'), @user_agent.platform, 1
+      @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}", @user_agent.browser
     end
 
   	# User activity

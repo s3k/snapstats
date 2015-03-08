@@ -35,28 +35,33 @@ module Snapstats
       
 		end
 
+		class Browsers
+			include Virtus.model
+
+			attribute :name, String
+			attribute :total, Integer
+
+			def self.fetch_platforms
+				data = Snapstats.redis.hgetall(Snapstats.mday("platforms")).values.group_by{ |platform| platform }.map{ |name, platforms|{name => platforms.count} }
+				data.map{|i| self.new(name: i.keys.try(:first), total: i.values.try(:first)) }
+			end
+
+			def self.fetch_browsers
+				data = Snapstats.redis.hgetall(Snapstats.mday("browsers")).values.group_by{ |browser| browser }.map{ |name, browsers|{ name => browsers.count} }
+				data.map{|i| self.new(name: i.keys.try(:first), total: i.values.try(:first)) }
+			end
+		end
+
 		class Uniqs
 			include Virtus.model
 
 			def self.fetch_uniqs
-				Snapstats.redis.hgetall(Snapstats.mday("uniq")).values.reduce(:+)
+				Snapstats.redis.hgetall(Snapstats.mday("uniq")).keys.count
 			end
 		end
 
 		class Cpm
 			include Virtus.model
-
-			def self.fetch_cpm 
-				Snapstats.redis.hget(Snapstats.mday("cpm"), Time.now.beginning_of_minute.to_i)
-			end
-
-			def self.fetch_cph
-				Snapstats.redis.hgetall(Snapstats.mday("cpm"))
-			end
-
-			def self.fetch_cpd
-				Snapstats.redis.hgetall(Snapstats.mday("cpm")).values.reduce(:+)
-			end
 
 
 			def self.fetch_all

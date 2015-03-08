@@ -56,25 +56,28 @@
 					<td>&nbsp;</td>
 				</tr>
 
-				<tr>
-					<td>Windows</td>
-					<td>500</td>
+				<!-- Platforms -->
+
+				<% @platforms.each do |i| %>
+					<tr>
+						<td><%= i.name %></td>
+						<td><%= i.total %></td>
+					</tr>
+				<% end %>
+
+				<!-- Browsers -->
+
+				<tr class="clean-cell">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</tr>
 
-				<tr>
-					<td>OSX</td>
-					<td>1500</td>
-				</tr>
-
-				<tr>
-					<td>Linux</td>
-					<td>2500</td>
-				</tr>
-
-				<tr>
-					<td>Other</td>
-					<td>3100</td>
-				</tr>
+				<% @browsers.each do |i| %>
+					<tr>
+						<td><%= i.name %></td>
+						<td><%= i.total %></td>
+					</tr>
+				<% end %>
 
 			</table>
 		</div>
