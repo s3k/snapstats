@@ -1,0 +1,84 @@
+
+
+<div class="container animated fadeIn">
+
+	<div class="panel panel-wgt">
+		<div class="panel-heading">
+			<h3 class="panel-title">Activity</h3>
+		</div>
+		<div class="panel-body">
+			<div class="chart"></div>					
+		</div>
+	</div>
+
+</div>
+
+<!-- Daily overview -->
+
+<div class="container animated fadeIn">
+
+	<div class="page-header">
+		<h1>Daily overview</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table">
+			
+				<tr>
+					<td class="col-lg-9">Unique visits</td>
+					<td><%= @uniqs %></td>
+				</tr>
+
+				<tr class="clean-cell">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>Clicks per minute</td>
+					<td><%= @clicks[:cpm] %></td>
+				</tr>
+
+				<tr>
+					<td>Clicks per hour</td>
+					<td><%= @clicks[:cph] %></td>
+				</tr>
+
+				<tr>
+					<td>Clicks per day</td>
+					<td><%= @clicks[:cpd] %></td>
+				</tr>
+
+
+				<tr class="clean-cell">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+
+				<tr>
+					<td>Windows</td>
+					<td>500</td>
+				</tr>
+
+				<tr>
+					<td>OSX</td>
+					<td>1500</td>
+				</tr>
+
+				<tr>
+					<td>Linux</td>
+					<td>2500</td>
+				</tr>
+
+				<tr>
+					<td>Other</td>
+					<td>3100</td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+</div>
+

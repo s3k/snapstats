@@ -12,3 +12,7 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+gem 'redis'
+gem 'useragent'
+gem 'virtus'

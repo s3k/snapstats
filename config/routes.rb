@@ -1,8 +1,13 @@
 Snapstats::Engine.routes.draw do
 	
-	root to: 'main#show'
+	root to: 'mains#show'
 
-	resource :main
+	resource :main do
+		collection do
+			get :chart
+		end
+	end
+
 	resource :performance
 	resource :user
 end
