@@ -16,18 +16,34 @@ module Snapstats
         path:  @payload[:path],
         ctrl:  @payload[:controller],
         actn:  @payload[:action],
-        rntm:  @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.map{ |i| { i.to_sym => @payload[i].to_f.round(3) } },
+        rntm:  @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum },
         os:    @user_agent.platform,
         brwsr: @user_agent.browser,
         brver: @user_agent.version.to_s,
         ip:    @payload[:ip],
         total: @payload[:render_time],
-        email: @payload[:email]
+        email: @payload[:user_email],
+        date: time_key
       }.to_json
 
       @redis.zadd mday('activity'), time_key, value
 
       # add here links to users in sets like
+
+      if @payload[:user_id].present? && @payload[:user_email].present?
+        
+        uvalue = {
+          ts:     time_key,
+          path:   @payload[:path],
+          total:  @payload[:render_time],
+          os:     @user_agent.platform,
+          brwsr:  @user_agent.browser,
+          brver:  @user_agent.version.to_s
+
+        }.to_json
+
+        @redis.zadd mday("activity:user:#{@payload[:user_id]}"), time_key, uvalue
+      end
   	end
 
     def store_daily_uniqs
@@ -45,25 +61,28 @@ module Snapstats
   	# User activity
 
   	def store_user_activity_table
-  		return nil unless @payload[:user_email].present?
+  		return nil unless @payload[:user_id].present?
 
   		value = { 
   			ts: 		Time.current.to_i, 
-  			path: 	@payload[:path]
+  			path: 	@payload[:path],
+        email:  @payload[:user_email]
   		}.to_json
 
-  		@redis.hset mkey("activity:users"), @payload[:user_email], value 
+  		@redis.hset mkey("activity:users"), @payload[:user_id], value 
   	end
 
   	# Performance
 
-  	def store_performance_graph
-  		
-  	end
+    def store_slowest_controller
 
-  	def store_performance_table
-  		
-  	end
+      value = {
+        ctrl:  @payload[:controller],
+        actn:  @payload[:action],
+      }.to_json
+
+      @redis.zadd mday('performance:controllers'), @payload[:render_time].to_f, value
+    end
 
   end
 

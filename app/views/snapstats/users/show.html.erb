@@ -8,12 +8,18 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<table class="table">
+
+				<tr>
+					<th class="col-lg-5"> User email </th>
+					<th class="col-lg-3"> Time </th>
+					<th>Render time (ms)</th>
+				</tr>
 				
 				<% @users.each do |i| %>
 				
 					<tr>
-						<td class="col-lg-5"> <%= i.email %> </td>
-						<td class="col-lg-3"> <%= time_ago_in_words i.date, locale: :en %>  </td>
+						<td> <%= link_to i.email, activity_user_path(i.user_id) %> </td>
+						<td> <%= time_ago_in_words i.date, locale: :en %>  </td>
 						<td> <%= i.path %>  </td>
 					</tr>
 

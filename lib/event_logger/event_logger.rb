@@ -22,10 +22,8 @@ module Snapstats
       store_daily_platforms
       store_daily_browsers
 
-  		# store_user_activity_table
-
-  		# store_performance_graph
-  		# store_performance_table
+  		store_user_activity_table
+      store_slowest_controller
   	end
 
   	private

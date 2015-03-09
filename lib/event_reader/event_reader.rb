@@ -8,31 +8,66 @@ module Snapstats
       attribute :path, String
       attribute :controller, String
       attribute :action, String
-      attribute :runtimes, Array
+      attribute :runtimes, Hash
       attribute :os, String
       attribute :browser, String
       attribute :version, String
       attribute :ip, String
       attribute :render_time, String
+      attribute :date, Time
 
-
-			def self.fetch from=0, to=-1
-				Snapstats.redis.zrange(Snapstats.mday("activity"), 0, -1).map do |i|
+			def self.fetch from=0, to=Time.now
+				Snapstats.redis.zrangebyscore(Snapstats.mday("activity"), from.to_i, to.to_i).map do |i|
 					v = JSON.parse(i, :symbolize_names => true)
 					
-					self.new(email: v[:email], 
-									path: v[:path], 
-									controller: v[:cntrl], 
-									action: v[:actn], 
-									runtimes: v[:rntm], 
-									os: v[:os], 
-									browser: v[:brwsr], 
-									version: v[:brver],
-									ip: v[:ip],
-									render_time: v[:total])
+					self.new(email: 			v[:email], 
+									path: 				v[:path], 
+									controller: 	v[:ctrl], 
+									action: 			v[:actn], 
+									runtimes: 		v[:rntm], 
+									os: 					v[:os], 
+									browser: 			v[:brwsr], 
+									version: 			v[:brver],
+									ip: 					v[:ip],
+									render_time: 	v[:total],
+									date: 				Time.at(v[:date].to_i))	
 				end 
 			end
       
+      def self.fetch_all_chart
+
+      	# after 5 minutes i forgot how it works
+
+      	fetch(Time.now.beginning_of_day).map{ |i| 
+
+      		i.runtimes.reduce({}){ |sum, (k,v)| sum[k] = { value: v, date: i.date.to_i }; sum } 
+
+      	}.reduce({}){ |sum, i| 
+      		
+      		i.keys.each{ |rt| sum[rt].present? ? sum[rt] << i[rt] : sum[rt] = [ i[rt] ] }
+      		sum
+      	}
+
+      end
+
+		end
+
+		class Performance
+			include Virtus.model
+
+			attribute :controller
+			attribute :action
+			attribute :render_time
+
+			def self.fetch_slowest_controllers
+				Snapstats.redis.zrevrangebyscore(Snapstats.mday('performance:controllers'), '+inf', '-inf', { withscores: true }).map do |i|
+					v 		= JSON.parse(i.first, :symbolize_names => true)
+					time 	= i.last
+
+					self.new(controller: v[:ctrl], action: v[:actn], render_time: time)
+				end
+			end
+
 		end
 
 		class Browsers
@@ -79,7 +114,7 @@ module Snapstats
 			end
 
 			def self.fetch_all_chart
-				fetch_all.map{ |k ,v| { date: k, value: v } }
+				fetch_all.map{ |k, v| { date: k, value: v } }
 			end
       
 		end
@@ -90,13 +125,40 @@ module Snapstats
 			attribute :email, String
 			attribute :date, Time
 			attribute :path, String
+			attribute :user_id, String
+			attribute :render_time, String
+			attribute :os, String
+			attribute :browser, String
+			attribute :version, String
 
 			def self.fetch_all
-				Snapstats.redis.hgetall("snaps:activity:users").map do |email, values|
+				Snapstats.redis.hgetall(Snapstats.mkey("activity:users")).map do |uid, values|
 					values = JSON.parse(values, :symbolize_names => true)
-					self.new(email: email, date: Time.at(values[:ts]), path: values[:path])
+					self.new(email: values[:email], date: Time.at(values[:ts].to_i), path: values[:path], user_id: uid)
 				end
 			end
+
+			def self.fetch_for_user user_id, from='+inf', to='-inf'
+      	Snapstats.redis.zrevrangebyscore(Snapstats.mday("activity:user:#{user_id}"), from, to).map do |i|
+					v = JSON.parse(i, :symbolize_names => true)
+
+					self.new(	path: 				v[:path],
+										render_time: 	v[:total],
+										os: 					v[:os], 
+										browser: 			v[:brwsr], 
+										version: 			v[:brver],
+										date: 				Time.at(v[:ts].to_i))
+					end 
+      end
+
+      def self.fetch_email_by_uid user_id
+      	data = Snapstats.redis.hgetall(Snapstats.mkey("activity:users"))[user_id]
+      	JSON.parse(data, :symbolize_names => true)[:email] if data
+      end
+
+      def self.fetch_chart_for_user user_id
+      	fetch_for_user(user_id).group_by{ |i| i.date.beginning_of_minute }.map{ |k, v| { date: k.to_i, value: v.count } }
+      end
 
 		end
 

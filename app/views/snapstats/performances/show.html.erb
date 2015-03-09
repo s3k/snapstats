@@ -6,6 +6,7 @@
 		</div>
 		<div class="panel-body">
 			<div class="chart-performance"></div>
+			<div class="legend pull-right"></div>
 		</div>
 	</div>
 
@@ -16,30 +17,26 @@
 <div class="container animated fadeIn">
 
 	<div class="page-header">
-		<h1>Top Slowest Controller</h1>
+		<h1>Top Slowest Actions</h1>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
 			<table class="table">
-			
-				<tr>
-					<td class="col-lg-5">admin@admin.local</td>
-					<td class="col-lg-3">5 minutes ago</td>
-					<td>/companies</td>
-				</tr>
 
 				<tr>
-					<td>test1@local</td>
-					<td>10 minutes ago</td>
-					<td>/companies</td>
+					<th class="col-lg-5"> Controller </th>
+					<th class="col-lg-3">Action</th>
+					<th>Render time (ms)</th>
 				</tr>
-
-				<tr>
-					<td>test2@local</td>
-					<td>15 minutes ago</td>
-					<td>/companies</td>
-				</tr>
+				
+				<% @controllers.each do |i| %>
+					<tr>
+						<td> <%= i.controller %> </td>
+						<td> <%= i.action %> </td>
+						<td><%= i.render_time %></td>
+					</tr>
+				<% end %>
 
 			</table>
 		</div>
@@ -48,7 +45,7 @@
 </div>
 
 
-<div class="container animated fadeIn">
+<div class="container animated fadeIn" style="display:none;">
 
 	<div class="page-header">
 		<h1>System Component</h1>

@@ -32,6 +32,7 @@ $(document).ready(function () {
           width: $('.panel-wgt').width() - 40,
           height: 250,
           target: ".chart",
+          x_extended_ticks: true,
           x_accessor: "date",
           y_accessor: "value",
           interpolate: "liniar"
