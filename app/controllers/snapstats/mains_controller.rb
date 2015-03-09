@@ -9,7 +9,7 @@ module Snapstats
 		end
 
 		def chart
-			data = [{date: Time.now.beginning_of_day.to_i, value: 0}] + (EventReader::Cpm.fetch_all_chart) + [{date: Time.now.to_i, value: 0}]
+			data = EventReader::Cpm.fetch_all_chart
 			render json: data
 		end
 

@@ -2,7 +2,7 @@ $(document).ready(function () {
   ({
 
     when_cat : "li.section-performance",
-    data_path : '/snap/performance/chart',
+    data_path : ($(location).attr('pathname') + '/chart').replace('//', '/'),
 
     torso : { width : 375, height : 200, right : 20 },
 
@@ -20,8 +20,6 @@ $(document).ready(function () {
         var self = this;
 
         $.getJSON(self.data_path, function (data) {
-
-          console.log(data.data)
 
           for (var i = 0; i < data.data.length; i++) {
             for (var j = 0; j < data.data[i].length; j++) {

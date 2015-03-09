@@ -2,7 +2,7 @@ $(document).ready(function () {
   ({
 
     when_cat : "li.section-main",
-    data_path : '/snap/main/chart', //$(location).attr('pathname') + '/main/chart',
+    data_path : ($(location).attr('pathname') + '/main/chart').replace('//', '/'),
 
     init : function () {
       var self = this;

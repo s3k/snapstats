@@ -107,10 +107,12 @@ module Snapstats
 				data = Snapstats.redis.hgetall(Snapstats.mday("cpm"))
 
 				cpm = data[Time.now.beginning_of_minute.to_i.to_s] || 0
-				cph = data.group_by{ |k, v| Time.at(k.to_i).beginning_of_hour }.reduce({}){|sum, (k, v)| sum[k] = v.map{|i| i.last.to_i}.reduce(:+); sum }
 				cpd = data.values.reduce(0){ |sum, i| sum + i.to_i }
 
-				{ cpm: cpm, cph: cph[Time.now.beginning_of_hour], cpd: cpd }
+				cph = data.group_by{ |k, v| Time.at(k.to_i).beginning_of_hour }.reduce({}){|sum, (k, v)| sum[k] = v.map{|i| i.last.to_i}.reduce(:+); sum }
+				cph = cph.values.reduce(:+) / cph.keys.count
+
+				{ cpm: cpm, cph: cph, cpd: cpd }
 			end
 
 			def self.fetch_all_chart
