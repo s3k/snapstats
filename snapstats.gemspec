@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["https://github.com/s3k"]
   s.homepage    = "https://github.com/s3k"
   s.summary     = "If you want to know your slowest controllers, cpm or even user platforms and browsers — welcome!"
-  s.description = "With this gem you can track your user activity (devise feature only), slowest controllers, user browsers and platforms. It's like newrelic, but better, and it's yours ;)"
+  s.description = "With this gem you can track your user activity (devise feature only), slowest controllers, user browsers and platforms. It's like newrelic, but better ;)"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
