@@ -1,4 +1,4 @@
-= Snapstats
+# Snapstats
 
 With this gem you can track your user activity (devise feature only), slowest controllers, user browsers and platforms. It's like newrelic, but better ;)
 
