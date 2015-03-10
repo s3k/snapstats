@@ -19,7 +19,7 @@
 				
 					<tr>
 						<td> <%= link_to i.email, activity_user_path(i.user_id) %> </td>
-						<td> <%= time_ago_in_words i.date, locale: :en %>  </td>
+						<td> <%= time_ago_in_words i.date %>  </td>
 						<td> <%= i.path %>  </td>
 					</tr>
 
