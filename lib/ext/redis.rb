@@ -1,7 +1,7 @@
 module Snapstats
-	
+
 	def self.redis
-		@@redis # ||= Redis.new(:host => 'localhost', :port => 6379)
+		@@redis ||= nil # ||= Redis.new(:host => 'localhost', :port => 6379)
 	end
 
 	def self.set_redis opt={}
