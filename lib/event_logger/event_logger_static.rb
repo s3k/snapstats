@@ -52,8 +52,8 @@ module Snapstats
 			    :ip         => request.remote_ip,
 			    :stash      => request.session['flash'] && request.session['flash'][:log],
 			    
-			    :user_id  	=> fetch_user_id.call(opt), #request.env['warden'].try(:user).try(:id),
-			    :user_email => fetch_user_email.call(opt), # request.env['warden'].try(:user).try(:email),
+			    :user_id  	=> fetch_user_id.call(opt),
+			    :user_email => fetch_user_email.call(opt),
 			    :user_agent => request.user_agent
 			  }
 			 
