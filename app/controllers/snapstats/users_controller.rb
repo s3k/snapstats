@@ -1,6 +1,6 @@
 module Snapstats
 	class UsersController < ApplicationController
-
+		
 		def index
 			
 		end

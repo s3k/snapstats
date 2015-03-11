@@ -13,6 +13,10 @@ module Snapstats
 			render json: data
 		end
 
+		def unavailable
+			
+		end
+
 	end
 end
 

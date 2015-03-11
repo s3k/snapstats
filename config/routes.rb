@@ -5,6 +5,7 @@ Snapstats::Engine.routes.draw do
 	resource :main do
 		collection do
 			get :chart
+			get :unavailable
 		end
 	end
 
