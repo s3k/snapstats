@@ -109,10 +109,10 @@ module Snapstats
 				cpm = data[Time.now.beginning_of_minute.to_i.to_s] || 0
 				cpd = data.values.reduce(0){ |sum, i| sum + i.to_i }
 
-				cph = data.group_by{ |k, v| Time.at(k.to_i).beginning_of_hour }.reduce({}){|sum, (k, v)| sum[k] = v.map{|i| i.last.to_i}.reduce(:+); sum }
-				cph = cph.values.reduce(:+) / cph.keys.count
+				# cph = data.group_by{ |k, v| Time.at(k.to_i).beginning_of_hour }.reduce({}){|sum, (k, v)| sum[k] = v.map{|i| i.last.to_i}.reduce(:+); sum }
+				# cph = cph.values.reduce(:+) / cph.keys.count
 
-				{ cpm: cpm, cph: cph, cpd: cpd }
+				{ cpm: cpm, cph: 0, cpd: cpd }
 			end
 
 			def self.fetch_all_chart
@@ -134,7 +134,7 @@ module Snapstats
 			attribute :version, String
 
 			def self.fetch_all
-				Snapstats.redis.hgetall(Snapstats.mkey("activity:users")).map do |uid, values|
+				Snapstats.redis.hgetall(Snapstats.mday("activity:users")).map do |uid, values|
 					values = JSON.parse(values, :symbolize_names => true)
 					self.new(email: values[:email], date: Time.at(values[:ts].to_i), path: values[:path], user_id: uid)
 				end
@@ -154,7 +154,7 @@ module Snapstats
       end
 
       def self.fetch_email_by_uid user_id
-      	data = Snapstats.redis.hgetall(Snapstats.mkey("activity:users"))[user_id]
+      	data = Snapstats.redis.hgetall(Snapstats.mday("activity:users"))[user_id]
       	JSON.parse(data, :symbolize_names => true)[:email] if data
       end
 

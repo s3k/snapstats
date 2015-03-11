@@ -69,7 +69,7 @@ module Snapstats
         email:  @payload[:user_email]
   		}.to_json
 
-  		@redis.hset mkey("activity:users"), @payload[:user_id], value 
+  		@redis.hset mday("activity:users"), @payload[:user_id], value 
   	end
 
   	# Performance
