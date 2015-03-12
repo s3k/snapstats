@@ -1,8 +1,9 @@
 $(document).ready(function () {
   ({
 
-    when_cat : "li.section-main",
+    when_cat  : "li.section-main",
     data_path : ($(location).attr('pathname') + '/main/chart').replace('//', '/'),
+    torso     : { width : 375, height : 200, right : 20 },
 
     init : function () {
       var self = this;
@@ -25,12 +26,11 @@ $(document).ready(function () {
         }
 
         MG.data_graphic({
-          // title: "UFO Sightings",
-          // description: "Yearly UFO sightings from 1945 to 2010.",
-          data: data,
-          // markers: [{'year': new Date(1425739266*1000), 'label': new Date(1425739266*1000)}],
-          width: $('.panel-wgt').width() - 40,
-          height: 250,
+          data: data,          
+          full_width: true,
+          height: self.torso.height * 3 / 2,
+          right: self.torso.right,
+
           target: ".chart",
           x_extended_ticks: true,
           x_accessor: "date",

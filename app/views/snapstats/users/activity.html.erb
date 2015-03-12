@@ -33,7 +33,11 @@
 				<% @activity.sort_by{ |i| -i.date.to_i }.each do |i| %>
 				
 					<tr>
-						<td> <%= i.path %> </td>
+						<td> 
+							<span class="limit-cell">
+								<%= i.path %> 
+							</span>
+						</td>
 						<td> <%= time_ago_in_words i.date %>  </td>
 						<td> <%= i.render_time %>  </td>
 						<td> <%= i.os %>  </td>

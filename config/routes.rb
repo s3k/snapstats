@@ -17,8 +17,11 @@ Snapstats::Engine.routes.draw do
 	
 	resource :user do
 		collection do
-			get 'activity/:id' 			=> 'users#activity', :as => :activity
+			get 'activity/:id' 				=> 'users#activity', :as => :activity
 			get 'activity/:id/chart' 	=> 'users#chart', :as => :chart
 		end
 	end
+
+	resource :reports
+
 end

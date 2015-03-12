@@ -56,3 +56,11 @@ ul.menu li.active a, ul.menu li a:hover { color: white; }
 	padding-top: 10px;
 	text-align: center;
 }
+
+.limit-cell {
+	max-width: 400px; 
+	display: block; 
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
