@@ -30,7 +30,7 @@
 					<th>Browser</th>
 				</tr>
 				
-				<% @activity.each do |i| %>
+				<% @activity.sort_by{ |i| -i.date.to_i }.each do |i| %>
 				
 					<tr>
 						<td> <%= i.path %> </td>
