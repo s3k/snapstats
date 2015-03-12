@@ -83,7 +83,7 @@ module Snapstats
 
 			def self.fetch_browsers
 				data = Snapstats.redis.hgetall(Snapstats.mday("browsers")).values.group_by{ |browser| browser }.map{ |name, browsers|{ name => browsers.count} }
-				data.map{|i| self.new(name: i.keys.try(:first), total: i.values.try(:first)) }
+				data.map{|i| self.new(name: i.keys.try(:first), total: (i.values.try(:first).present? ? i.values.try(:first) : 'Other') ) }
 			end
 		end
 
