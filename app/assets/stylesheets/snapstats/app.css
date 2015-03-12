@@ -64,3 +64,19 @@ ul.menu li.active a, ul.menu li a:hover { color: white; }
 	text-overflow: ellipsis; 
 	white-space: nowrap;
 }
+
+.btn-trigger {
+	background: none;
+	border: 1px solid #3A344A;
+	color: #ccc;
+}
+
+.btn-trigger:hover {
+	border: 1px solid #4A445A;
+	color: #ccc;
+}
+
+.btn-trigger.active {
+	border: 1px solid #fff;
+	color: #fff;
+}

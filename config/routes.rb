@@ -12,6 +12,7 @@ Snapstats::Engine.routes.draw do
 	resource :performance do
 		collection do
 			get :chart
+			get :flat_chart
 		end
 	end
 	

@@ -50,6 +50,10 @@ module Snapstats
 
       end
 
+      def self.fetch_flat_chart
+				fetch(Time.now.beginning_of_day).map{ |i| { date: i.date.to_i, value: i.render_time } }
+			end
+
 		end
 
 		class Performance

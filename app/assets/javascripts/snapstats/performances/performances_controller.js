@@ -1,8 +1,9 @@
 $(document).ready(function () {
   ({
 
-    when_cat : "li.section-performance",
-    data_path : ($(location).attr('pathname') + '/chart').replace('//', '/'),
+    when_cat        : "li.section-performance",
+    data_path       : ($(location).attr('pathname') + '/chart').replace('//', '/'),
+    flat_data_path  : ($(location).attr('pathname') + '/flat_chart').replace('//', '/'),
 
     torso : { width : 375, height : 200, right : 20 },
 
@@ -13,7 +14,58 @@ $(document).ready(function () {
         return false;
       }
 
-      self.draw_chart();
+      self.init_buttons();
+
+      // self.draw_chart();
+      self.draw_flat_chart();
+    },
+
+    init_buttons : function () {
+      var self = this;
+
+      $('.detail-chart').click(function () {
+        self.draw_chart();
+        
+        $('.legend').show();
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+      });
+
+      $('.total-chart').click(function () {
+        self.draw_flat_chart();
+        
+        $('.legend').hide();
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+      });
+    },
+
+    draw_flat_chart : function () {
+      var self = this;
+
+      $.getJSON(self.flat_data_path, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+          data[i].date = new Date(data[i].date*1000)
+        }
+
+        MG.data_graphic({
+          
+          data: data,
+          full_width: true,
+          
+          height: self.torso.height * 3 / 2,
+          right: self.torso.right,
+
+          target: ".chart-performance",
+          x_extended_ticks: true,
+          x_accessor: "date",
+          y_accessor: "value",
+          // y_scale_type:'log',
+          interpolate: "linear"
+        });
+      });
+
     },
 
     draw_chart : function () {
@@ -36,11 +88,16 @@ $(document).ready(function () {
             target: '.chart-performance',
             x_accessor: 'date',
             y_accessor: 'value',
-            interpolate: "linear",
-            y_scale_type:'log',
-            // y_label: "milliseconds",
+            interpolate: "basic",
+            y_scale_type:'linear',
             legend: data.legend,
-            legend_target: '.legend'
+            legend_target: '.legend',
+            
+            // y_label: "milliseconds",
+            // y_extended_ticks: true,
+            // yax_format: d3.time.format('%B'),
+            
+            yax_units: 'ms '
           });
 
         });

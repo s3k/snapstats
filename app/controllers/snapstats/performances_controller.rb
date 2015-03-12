@@ -14,5 +14,9 @@ module Snapstats
 			render json: {data: data.values, legend: data.keys}
 		end
 
+		def flat_chart
+			render json: Snapstats::EventReader::Activity.fetch_flat_chart
+		end
+
 	end
 end
