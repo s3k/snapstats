@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     when_cat : "li.section-user",
     data_path : ($(location).attr('pathname') + '/chart').replace('//', '/'),
+    torso : { width : 375, height : 200, right : 20 },
 
     init : function () {
       var self = this;
@@ -30,13 +31,16 @@ $(document).ready(function () {
         MG.data_graphic({
           
           data: data,
-          width: $('.panel-wgt').width() - 40,
-          height: 250,
+          full_width: true,
+          
+          height: self.torso.height * 3 / 2,
+          right: self.torso.right,
+
           target: ".user-activity-chart",
           x_extended_ticks: true,
           x_accessor: "date",
           y_accessor: "value",
-          interpolate: "liniar"
+          interpolate: "linear"
         });
 
       });

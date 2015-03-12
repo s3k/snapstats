@@ -36,7 +36,8 @@ $(document).ready(function () {
             target: '.chart-performance',
             x_accessor: 'date',
             y_accessor: 'value',
-            interpolate: "liniar",
+            interpolate: "linear",
+            y_scale_type:'log',
             // y_label: "milliseconds",
             legend: data.legend,
             legend_target: '.legend'

@@ -27,6 +27,7 @@ $(document).ready(function () {
 
         MG.data_graphic({
           data: data,          
+          
           full_width: true,
           height: self.torso.height * 3 / 2,
           right: self.torso.right,
@@ -35,7 +36,8 @@ $(document).ready(function () {
           x_extended_ticks: true,
           x_accessor: "date",
           y_accessor: "value",
-          interpolate: "liniar"
+          interpolate: "linear",
+          y_scale_type:'log',
         });
 
       });
