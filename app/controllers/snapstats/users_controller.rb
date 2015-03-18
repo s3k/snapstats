@@ -15,7 +15,7 @@ module Snapstats
 		end
 
 		def chart
-			render json: EventReader::UserActivity.fetch_chart_for_user(params[:id])
+			render json: EventReader::UserActivity.fetch_chart_for_user(params[:id], 5)
 		end
 
 	end

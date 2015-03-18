@@ -43,10 +43,6 @@ ul.menu li { display: inline; margin-right: 15px;}
 ul.menu li a { text-decoration: none; color: #767F73; }
 ul.menu li.active a, ul.menu li a:hover { color: white; }
 
-.chart{
-	margin-top: 70px;
-}
-
 .panel-wgt {
 	background: none;
 	border: 1px solid #3A344A;
@@ -66,17 +62,45 @@ ul.menu li.active a, ul.menu li a:hover { color: white; }
 }
 
 .btn-trigger {
+	font-size: 10px;
+
 	background: none;
-	border: 1px solid #3A344A;
-	color: #ccc;
+	border:0px solid #3A344A;
+	
+	padding: 1px;
+	margin: 0px 3px;
+	
+	color: #767F73;
 }
 
 .btn-trigger:hover {
-	border: 1px solid #4A445A;
+	border: 0px solid #4A445A;
 	color: #ccc;
 }
 
 .btn-trigger.active {
-	border: 1px solid #fff;
-	color: #fff;
+	border-bottom: 1px dashed #ccc;
+	border-radius: 0;
+	color: #ccc;
+}
+
+.chart-corner-btns {
+	margin-top: -20px;
+}
+
+.loader
+{
+	width:200px;
+	height:200px;
+	border-radius:100px;
+	font-size:14px;
+
+	color:#4A445A;
+
+	margin: 50px auto;
+
+	line-height:200px;
+	text-align:center;
+	/*background:#000;*/
+	border: 1px dashed #4A445A;
 }

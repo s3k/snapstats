@@ -97,7 +97,7 @@ $(document).ready(function () {
             // y_extended_ticks: true,
             // yax_format: d3.time.format('%B'),
             
-            yax_units: 'ms '
+            // yax_units: 'ms '
           });
 
         });

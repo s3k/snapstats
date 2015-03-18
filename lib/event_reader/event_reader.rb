@@ -1,6 +1,7 @@
 module Snapstats
 	module EventReader
-		
+		require "event_reader/event_reader_helpers"
+
 		class Activity
 			include Virtus.model
 
@@ -101,7 +102,7 @@ module Snapstats
 
 		class Cpm
 			include Virtus.model
-
+			extend EventReaderHelpers
 
 			def self.fetch_all
 				Snapstats.redis.hgetall(Snapstats.mday("cpm"))
@@ -119,14 +120,15 @@ module Snapstats
 				{ cpm: cpm, cph: 0, cpd: cpd }
 			end
 
-			def self.fetch_all_chart
-				fetch_all.map{ |k, v| { date: k, value: v } }
+			def self.fetch_all_chart aprx=10
+				fetch_all.group_by{|k, v| floor_time(k.to_i, aprx.minutes) }.reduce({}){ |sum, (k,v)| sum[k] = v.reduce(0){|s, i| s += i.last.to_i }; sum }.map{ |k, v| { date: k, value: v } }
 			end
       
 		end
 
 		class UserActivity
 			include Virtus.model
+			extend EventReaderHelpers
 
 			attribute :email, String
 			attribute :date, Time
@@ -162,8 +164,8 @@ module Snapstats
       	JSON.parse(data, :symbolize_names => true)[:email] if data
       end
 
-      def self.fetch_chart_for_user user_id
-      	fetch_for_user(user_id).group_by{ |i| i.date.beginning_of_minute }.map{ |k, v| { date: k.to_i, value: v.count } }
+      def self.fetch_chart_for_user user_id, aprx=10
+      	fetch_for_user(user_id).group_by{ |i| floor_time(i.date.to_i, aprx.minutes) }.map{ |k, v| { date: k.to_i, value: v.count } }
       end
 
 		end

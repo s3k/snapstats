@@ -12,12 +12,17 @@ $(document).ready(function () {
         return false;
       }
 
+      self.run_autoupdate();
+    },
+
+    run_autoupdate : function () {
+      var self = this;
       self.draw_chart();
+      setInterval(function () { self.draw_chart() }, 5000);
     },
 
     draw_chart : function () {
       var self = this;
-
 
       $.getJSON(self.data_path, function (data) {
 
@@ -26,9 +31,10 @@ $(document).ready(function () {
         }
 
         MG.data_graphic({
-          data: data,          
           
+          data: data,          
           full_width: true,
+
           height: self.torso.height * 3 / 2,
           right: self.torso.right,
 
@@ -37,8 +43,11 @@ $(document).ready(function () {
           x_accessor: "date",
           y_accessor: "value",
           interpolate: "linear",
-          y_scale_type:'log',
+          // y_scale_type:'log'
         });
+
+        $('.loader').hide();
+        $('.chart').addClass('animated fadeIn');
 
       });
 

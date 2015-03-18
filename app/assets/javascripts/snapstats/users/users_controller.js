@@ -12,10 +12,16 @@ $(document).ready(function () {
         return false;
       }
 
-      self.user_chart();
+      self.run_autoupdate();
     },
 
-    user_chart : function () {
+    run_autoupdate : function () {
+      var self = this;
+      self.draw_chart();
+      setInterval(function () { self.draw_chart() }, 5000);
+    },
+
+    draw_chart : function () {
       var self = this;
 
       if ( $('div.user-activity-chart').length <= 0 ){
@@ -42,6 +48,8 @@ $(document).ready(function () {
           y_accessor: "value",
           interpolate: "linear"
         });
+
+        $('.loader').hide();
 
       });
       

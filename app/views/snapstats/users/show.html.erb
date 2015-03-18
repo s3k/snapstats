@@ -15,7 +15,7 @@
 					<th>Path</th>
 				</tr>
 				
-				<% @users.sort_by{ |i| i.date.to_i }.each do |i| %>
+				<% @users.sort_by{ |i| -i.date.to_i }.each do |i| %>
 				
 					<tr>
 						<td> <%= link_to i.email, activity_user_path(i.user_id) %> </td>
