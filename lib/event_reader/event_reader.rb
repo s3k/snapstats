@@ -4,6 +4,7 @@ module Snapstats
 
 		class Activity
 			include Virtus.model
+      extend EventReaderHelpers
 
 			attribute :email, String
       attribute :path, String
@@ -41,18 +42,27 @@ module Snapstats
 
       	fetch(Time.now.beginning_of_day).map{ |i| 
 
-      		i.runtimes.reduce({}){ |sum, (k,v)| sum[k] = { value: v, date: i.date.to_i }; sum } 
+          i.runtimes.reduce({}){ |sum, (k,v)| sum[k] = { value: v, date: i.date.to_i }; sum } 
 
       	}.reduce({}){ |sum, i| 
       		
       		i.keys.each{ |rt| sum[rt].present? ? sum[rt] << i[rt] : sum[rt] = [ i[rt] ] }
       		sum
       	}
-
       end
 
-      def self.fetch_flat_chart
-				fetch(Time.now.beginning_of_day).map{ |i| { date: i.date.to_i, value: i.render_time } }
+      def self.fetch_all_chart_scale aprx=5
+        charts = fetch_all_chart 
+
+        charts.keys.each { |runtime|
+          charts[runtime] = charts[runtime].group_by{ |i| floor_time(i[:date].to_i, aprx.minutes) }.map{|k,v| { :date => k, :value => v.max_by{|i| i[:value]}[:value] }}
+        }
+
+        charts
+      end
+
+      def self.fetch_flat_chart aprx=5
+				fetch(Time.now.beginning_of_day).group_by{ |i| floor_time(i[:date].to_i, aprx.minutes) }.map{|k,v| { :date => k, :value => v.max_by{|i| i.render_time.to_f }.render_time }}#.map{ |i| { date: i.date.to_i, value: i.render_time } }
 			end
 
 		end
