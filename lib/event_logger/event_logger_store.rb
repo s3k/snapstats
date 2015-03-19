@@ -12,16 +12,18 @@ module Snapstats
 
       time_key = Time.current.to_i
 
+      rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
+
       value = { 
         path:  @payload[:path],
         ctrl:  @payload[:controller],
         actn:  @payload[:action],
-        rntm:  @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum },
+        rntm:  rt_hash,
         os:    @user_agent.platform,
         brwsr: @user_agent.browser,
         brver: @user_agent.version.to_s,
         ip:    @payload[:ip],
-        total: @payload[:render_time],
+        total: rt_hash.values.reduce(:+),
         email: @payload[:user_email],
         date: time_key
       }.to_json
