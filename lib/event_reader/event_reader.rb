@@ -93,12 +93,12 @@ module Snapstats
 
 			def self.fetch_platforms
 				data = Snapstats.redis.hgetall(Snapstats.mday("platforms")).values.group_by{ |platform| platform }.map{ |name, platforms|{name => platforms.count} }
-				data.map{|i| self.new(name: i.keys.try(:first), total: i.values.try(:first)) }
+				data.map{|i| self.new(name: (i.keys.try(:first).present? ? i.keys.try(:first) : 'Other'), total: i.values.try(:first)) }
 			end
 
 			def self.fetch_browsers
 				data = Snapstats.redis.hgetall(Snapstats.mday("browsers")).values.group_by{ |browser| browser }.map{ |name, browsers|{ name => browsers.count} }
-				data.map{|i| self.new(name: i.keys.try(:first), total: (i.values.try(:first).present? ? i.values.try(:first) : 'Other') ) }
+				data.map{|i| self.new(name: i.keys.try(:first), total: i.values.try(:first) ) }
 			end
 		end
 

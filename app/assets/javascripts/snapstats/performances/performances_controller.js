@@ -61,9 +61,12 @@ $(document).ready(function () {
           x_extended_ticks: true,
           x_accessor: "date",
           y_accessor: "value",
-          // y_scale_type:'log',
+          y_scale_type:'log',
           interpolate: "linear"
         });
+
+        $('.loader').hide();
+        $('.chart-performance').addClass('animated fadeIn');
       });
 
     },
