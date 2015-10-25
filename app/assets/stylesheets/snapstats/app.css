@@ -38,7 +38,7 @@ h1, h2, h3{ font-weight: lighter; }
 	padding: 50px 0px;
 }
 
-ul.menu{ list-style-type: none; margin: 0px 0px 50px 0px; padding: 0px; font-weight: lighter;}
+ul.menu{ list-style-type: none; margin: 0px 0px 50px 0px; padding: 0px; font-weight: 300;}
 ul.menu li { display: inline; margin-right: 15px;}
 ul.menu li a { text-decoration: none; color: #767F73; }
 ul.menu li.active a, ul.menu li a:hover { color: white; }
