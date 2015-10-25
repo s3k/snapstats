@@ -5,4 +5,30 @@
 		<li <%= active_cat? :performance %>> <a href="#"><%= link_to 'Performance', performance_path %></li>
 		<!-- <li <%= active_cat? :reports %>> <a href="#"><%= link_to 'Reports', performance_path %></li> -->
 	</ul>
+
+  <div class="pull-right">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Today
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+        <li><a href="#">Today</a></li>
+        <li><a href="#">Week</a></li>
+        <li><a href="#">Month</a></li>
+        <li class="dropdown-header">By months</li>
+        <li class="disabled"><a href="#">January</a></li>
+        <li class="disabled"><a href="#">March</a></li>
+        <li class="disabled"><a href="#">April</a></li>
+        <li class="disabled"><a href="#">May</a></li>
+        <li class="disabled"><a href="#">June</a></li>
+        <li><a href="#">July</a></li>
+        <li><a href="#">August</a></li>
+        <li><a href="#">September</a></li>
+        <li><a href="#">October</a></li>
+        <li class="disabled"><a href="#">November</a></li>
+        <li class="disabled"><a href="#">December</a></li>
+      </ul>
+    </div>
+  </div>
 </div>

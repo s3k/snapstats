@@ -1,6 +1,7 @@
 body{
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: lighter;
+	/*font-weight: lighter;*/
+	font-weight: 300;
 
 	color: #fff;
 
@@ -12,11 +13,32 @@ body{
 
 h1, h2, h3{ font-weight: lighter; }
 
+/*.dropdown button {
+	background-color: red !important;
+}
+*/
+.dropdown button, button:hover {
+	background-color: none;
+	background-image: none !important;
+	text-shadow: none;
+
+	/*border: 1px solid rgba(100, 88, 130, 0.7);*/
+}
+/*.dorpdown{
+	background-color: blue !important;
+}
+*/
+.dropdown-menu{
+	/*background-color:rgba(58, 52, 74, 0.7);*/
+	/*border: 1px solid rgba(60, 54, 76, 1.0);*/
+}
+
 
 .table-round{
 	border-radius: 5px;
 	display: block;
 	border: 1px solid #3A344A;
+	/*border: 1px solid rgba(100, 88, 130, 0.5);*/
 	font-weight: 300;
 
 	background-color:rgba(58, 52, 74, 0.2);
@@ -39,7 +61,7 @@ h1, h2, h3{ font-weight: lighter; }
 	border-top: none !important; 
 	border-bottom: 1px solid #3A344A;
 
-	font-weight: 200;
+	font-weight: 300;
 
 	padding: 7px 0px !important;
  }
@@ -60,12 +82,12 @@ h1, h2, h3{ font-weight: lighter; }
 }
 
 .page-header h1 {
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 	
 	margin-bottom: 0px;
 	margin-top: 0px;
 
-	font-size: 15px;
+	/*font-size: 15px;*/
 	font-weight: 200;
 }
 
@@ -80,7 +102,8 @@ ul.menu li.active a, ul.menu li a:hover { color: white; }
 
 .panel-wgt {
 	background: none;
-	border: 1px solid #3A344A;
+	/*border: 1px solid #645882;*/
+	border: 1px solid rgba(100, 88, 130, 0.5);
 }
 
 .panel-title {

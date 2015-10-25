@@ -2,6 +2,12 @@ module Snapstats
   module EventReader
     require "event_reader/event_reader_helpers"
 
+    class Common
+      def self.fetch_avalible_months
+        Snapstats.redis.keys("snaps:*").map{ |i| DateTime.strptime(i.split(":")[1], "%s") }.map{ |i| i.month }.sort.uniq
+      end
+    end
+
     class Top
       include Virtus.model
       extend EventReaderHelpers
