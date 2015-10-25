@@ -57,7 +57,19 @@ module Snapstats
     end
 
     def store_daily_browsers
-      @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}", @user_agent.browser
+      @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}_#{@user_agent.version}", "#{@user_agent.browser} #{@user_agent.version}"
+    end
+
+    def store_top_pathes
+      @redis.zincrby mday('top:pathes'), 1, @payload[:path]
+    end
+
+    def store_top_browsers
+      @redis.zincrby mday('top:browsers'), 1, "#{@payload[:ip]} | #{@user_agent.browser} #{@user_agent.version}"
+    end
+
+    def store_top_devices
+      @redis.zincrby mday('top:devices'), 1, "#{@payload[:ip]} | #{@user_agent.platform}"
     end
 
     # User activity

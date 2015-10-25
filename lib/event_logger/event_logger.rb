@@ -24,6 +24,10 @@ module Snapstats
 
       store_user_activity_table
       store_slowest_controller
+
+      store_top_pathes
+      store_top_browsers
+      store_top_devices
     end
 
     private

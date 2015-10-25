@@ -6,6 +6,10 @@ module Snapstats
 			@clicks 		= EventReader::Cpm.fetch_all_hash
 			@platforms 	= EventReader::Browsers.fetch_platforms
 			@browsers 	= EventReader::Browsers.fetch_browsers
+
+			@top_pathes 	= EventReader::Top.fetch_pathes.take(10)
+			@top_browsers = EventReader::Top.fetch_browsers.take(10)
+			@top_devices 	= EventReader::Top.fetch_devices.take(10)
 		end
 
 		def chart

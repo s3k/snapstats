@@ -25,10 +25,72 @@
 
 <div class="container animated fadeIn">
 
-	<div class="page-header">
+<!-- 	<div class="page-header">
 		<h1>Daily overview</h1>
 	</div>
+ -->
+	<div class="row" style="margin-top: 10px;">
 
+		<!-- Most visited pages today -->
+
+		<div class="col-lg-4">
+			<table class="table-round">
+				<tr>
+					<th>
+						Most visited pages
+					</th>
+					<th></th>
+				</tr>
+				<% @top_pathes.each do |i| %>
+					<tr>
+						<td><%= i.name %></td>
+						<td><%= i.total %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+
+		<!-- Browsers today -->
+
+		<div class="col-lg-4">
+			<table class="table-round">
+				<tr>
+					<th>
+						Browsers
+					</th>
+					<th></th>
+				</tr>
+				<% @top_browsers.sort_by(&:total).reverse.each do |i| %>
+					<tr>
+						<td><%= i.name %></td>
+						<td><%= i.total %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+
+		<!-- Devices today -->
+
+		<div class="col-lg-4">
+			<table class="table-round">
+				<tr>
+					<th>
+						Top Devices
+					</th>
+					<th></th>
+				</tr>
+				<% @top_devices.sort_by(&:total).reverse.each do |i| %>
+					<tr>
+						<td><%= i.name %></td>
+						<td><%= i.total %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+
+
+	</div>
+<!--
 	<div class="row">
 		<div class="col-lg-12">
 			<table class="table">
@@ -46,13 +108,13 @@
 				<tr>
 					<td>Clicks per minute</td>
 					<td><%= @clicks[:cpm] %></td>
-				</tr>
+				</tr> -->
 
 				<!-- <tr>
 					<td>Clicks per hour</td>
 					<td><%= @clicks[:cph] %></td>
 				</tr> -->
-
+<!--
 				<tr>
 					<td>Clicks per day</td>
 					<td><%= @clicks[:cpd] %></td>
@@ -63,18 +125,18 @@
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
-
+-->
 				<!-- Platforms -->
-
+<!--
 				<% @platforms.each do |i| %>
 					<tr>
 						<td><%= i.name %></td>
 						<td><%= i.total %></td>
 					</tr>
 				<% end %>
-
+-->
 				<!-- Browsers -->
-
+<!--
 				<tr class="clean-cell">
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -90,6 +152,13 @@
 			</table>
 		</div>
 	</div>
+-->
+
+<!-- 	<div class="page-header">
+		<h1>Useful stuff</h1>
+	</div>
+ -->
+
 
 </div>
 

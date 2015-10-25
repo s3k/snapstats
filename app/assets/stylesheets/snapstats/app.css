@@ -12,6 +12,29 @@ body{
 
 h1, h2, h3{ font-weight: lighter; }
 
+
+.table-round{
+	border-radius: 5px;
+	display: block;
+	border: 1px solid #3A344A;
+	font-weight: 300;
+
+	background-color:rgba(58, 52, 74, 0.2);
+} 
+
+.table-round th, .table-round td {
+	padding: 10px;
+	width: 100%;
+}
+
+.table-round th {
+	border-bottom: 1px solid #3A344A;
+ }
+
+ .table-round tr:hover { 
+ 	background-color:rgba(58, 52, 74, 0.3);
+ }
+
 .table, .table th, .table td { 
 	border-top: none !important; 
 	border-bottom: 1px solid #3A344A;
@@ -30,8 +53,20 @@ h1, h2, h3{ font-weight: lighter; }
 }
 
 .page-header {
-	border-bottom: 1px solid #949DA9;
+	/*border-bottom: 1px solid #949DA9;*/
 	/*padding: 15px 0px !important;*/
+
+	border-bottom: 1px solid rgba(58, 52, 74, 0.0);
+}
+
+.page-header h1 {
+	padding-left: 10px;
+	
+	margin-bottom: 0px;
+	margin-top: 0px;
+
+	font-size: 15px;
+	font-weight: 200;
 }
 
 .app-container {
@@ -46,6 +81,10 @@ ul.menu li.active a, ul.menu li a:hover { color: white; }
 .panel-wgt {
 	background: none;
 	border: 1px solid #3A344A;
+}
+
+.panel-title {
+	font-weight: 300;
 }
 
 .panel-wgt .panel-title {
