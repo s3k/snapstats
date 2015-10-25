@@ -1,20 +1,20 @@
 module Snapstats
-	
+
   class EventLogger
 
-  	# Daily report
+    # Daily report
 
     def store_cpm
       @redis.hincrby mday("cpm"), Time.now.beginning_of_minute.to_i, 1
     end
 
-		def store_daily_activity
+    def store_daily_activity
 
       time_key = Time.current.to_i
 
       rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
 
-      value = { 
+      value = {
         path:  @payload[:path],
         ctrl:  @payload[:controller],
         actn:  @payload[:action],
@@ -33,7 +33,7 @@ module Snapstats
       # add here links to users in sets like
 
       if @payload[:user_id].present? && @payload[:user_email].present?
-        
+
         uvalue = {
           ts:     time_key,
           path:   @payload[:path],
@@ -46,7 +46,7 @@ module Snapstats
 
         @redis.zadd mday("activity:user:#{@payload[:user_id]}"), time_key, uvalue
       end
-  	end
+    end
 
     def store_daily_uniqs
       @redis.hincrby mday('uniq'), @payload[:ip], 1
@@ -60,21 +60,21 @@ module Snapstats
       @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}", @user_agent.browser
     end
 
-  	# User activity
+    # User activity
 
-  	def store_user_activity_table
-  		return nil unless @payload[:user_id].present?
+    def store_user_activity_table
+      return nil unless @payload[:user_id].present?
 
-  		value = { 
-  			ts: 		Time.current.to_i, 
-  			path: 	@payload[:path],
+      value = {
+        ts:     Time.current.to_i,
+        path:   @payload[:path],
         email:  @payload[:user_email]
-  		}.to_json
+      }.to_json
 
-  		@redis.hset mday("activity:users"), @payload[:user_id], value 
-  	end
+      @redis.hset mday("activity:users"), @payload[:user_id], value
+    end
 
-  	# Performance
+    # Performance
 
     def store_slowest_controller
 
