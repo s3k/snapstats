@@ -15,6 +15,9 @@ module Snapstats
       @payload[:render_time] = finished - started
       @user_agent = UserAgent.parse(@payload[:user_agent])
 
+      store_tops
+      store_uniq_client_ids
+
       store_cpm
       store_daily_activity
       store_daily_uniqs
@@ -24,10 +27,6 @@ module Snapstats
 
       store_user_activity_table
       store_slowest_controller
-
-      store_top_pathes
-      store_top_browsers
-      store_top_devices
     end
 
     private
@@ -42,6 +41,17 @@ module Snapstats
 
     def mday name
       Snapstats.mday name
+    end
+
+    def uniq_client_hash
+      Digest::SHA1.hexdigest({
+        
+        os:    @user_agent.platform,
+        brwsr: @user_agent.browser,
+        brver: @user_agent.version.to_s,
+        ip:    @payload[:ip]
+
+      }.values.join(''))
     end
 
   end

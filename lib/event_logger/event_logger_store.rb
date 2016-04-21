@@ -48,6 +48,22 @@ module Snapstats
       end
     end
 
+    def store_uniq_client_ids
+      # uniq client hash table with visits
+      @redis.hincrby mday('uniq_client_ids'), uniq_client_hash, 1
+    end
+
+    def store_tops
+      
+      @redis.zincrby mday('top:pathes'), 1, @payload[:path]
+
+      # Store data if it first client visit
+      unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
+        @redis.zincrby mday('top:browsers'), 1, "#{@payload[:ip]} | #{@user_agent.browser} #{@user_agent.version}"
+        @redis.zincrby mday('top:devices'), 1, "#{@payload[:ip]} | #{@user_agent.platform}"
+      end
+    end
+
     def store_daily_uniqs
       @redis.hincrby mday('uniq'), @payload[:ip], 1
     end
@@ -58,18 +74,6 @@ module Snapstats
 
     def store_daily_browsers
       @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}_#{@user_agent.version}", "#{@user_agent.browser} #{@user_agent.version}"
-    end
-
-    def store_top_pathes
-      @redis.zincrby mday('top:pathes'), 1, @payload[:path]
-    end
-
-    def store_top_browsers
-      @redis.zincrby mday('top:browsers'), 1, "#{@payload[:ip]} | #{@user_agent.browser} #{@user_agent.version}"
-    end
-
-    def store_top_devices
-      @redis.zincrby mday('top:devices'), 1, "#{@payload[:ip]} | #{@user_agent.platform}"
     end
 
     # User activity

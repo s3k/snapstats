@@ -16,7 +16,7 @@ module Snapstats
       attribute :total, Integer
 
       def self.fetch key
-        ret = Snapstats.redis.zrangebyscore Snapstats.mday(key), "-inf", "+inf", :with_scores => true
+        ret = Snapstats.redis.zrevrangebyscore Snapstats.mday(key), "+inf", "-inf", :with_scores => true
         ret.map { |i| self.new(name: i.first, total: i.last) }
       end
 

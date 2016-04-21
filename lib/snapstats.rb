@@ -1,3 +1,4 @@
+require 'digest/sha1'
 require "snapstats/engine"
 require "ext/redis"
 require "ext/utils"
