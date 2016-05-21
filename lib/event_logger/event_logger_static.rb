@@ -2,10 +2,10 @@ module Snapstats
 
   class EventLogger
 
-    @@is_started = false
+    # Thread.current[:is_started] = false
 
     def self.start opt={}
-      unless @@is_started
+      # unless Thread.current[:is_started]
 
         Snapstats.set_redis opt[:redis]
 
@@ -14,8 +14,8 @@ module Snapstats
           subscribe
         end
 
-        @@is_started = true
-      end
+        # Thread.current[:is_started] = true
+      # end
     end
 
     def self.subscribe

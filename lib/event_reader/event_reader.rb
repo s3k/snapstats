@@ -16,7 +16,7 @@ module Snapstats
       attribute :total, Integer
 
       def self.fetch key
-        ret = Snapstats.redis.zrevrangebyscore Snapstats.mday(key), "+inf", "-inf", :with_scores => true
+        ret = Snapstats.redis.zrevrangebyscore Snapstats.mday(key), "+inf", "-inf", :with_scores => true, limit: 10
         ret.map { |i| self.new(name: i.first, total: i.last) }
       end
 
@@ -137,7 +137,7 @@ module Snapstats
       include Virtus.model
 
       def self.fetch_uniqs
-        Snapstats.redis.hgetall(Snapstats.mday("uniq")).keys.count
+        Snapstats.redis.hlen(Snapstats.mday("uniq_client_ids")).to_i
       end
     end
 

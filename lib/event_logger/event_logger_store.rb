@@ -5,7 +5,12 @@ module Snapstats
     # Daily report
 
     def store_cpm
+      
+      floor_time = -> sec, fsec { (Time.at(sec).to_f/fsec).floor*fsec }
+
       @redis.hincrby mday("cpm"), Time.now.beginning_of_minute.to_i, 1
+      @redis.incr mday("cpd")
+      @redis.hincrby mday("cpd_chart"), floor_time.call(Time.now.to_i, 10.minutes), 1
     end
 
     def store_daily_activity
@@ -58,22 +63,29 @@ module Snapstats
       @redis.zincrby mday('top:pathes'), 1, @payload[:path]
 
       # Store data if it first client visit
+      # unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
+      #   @redis.zincrby mday('top:browsers'), 1, "#{uniq_client_hash} | #{@user_agent.browser} #{@user_agent.version}"
+      #   @redis.zincrby mday('top:devices'), 1, "#{uniq_client_hash} | #{@user_agent.platform}"
+      # end
+    end
+
+    # def store_daily_uniqs
+    #   @redis.hincrby mday('uniq'), @payload[:ip], 1
+    # end
+
+    def store_daily_platforms
+      # @redis.hset mday('platforms'), "#{@payload[:ip]}_#{@user_agent.platform}", @user_agent.platform
       unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
-        @redis.zincrby mday('top:browsers'), 1, "#{@payload[:ip]} | #{@user_agent.browser} #{@user_agent.version}"
-        @redis.zincrby mday('top:devices'), 1, "#{@payload[:ip]} | #{@user_agent.platform}"
+        @redis.hincrby mday('platforms'), @user_agent.platform, 1
       end
     end
 
-    def store_daily_uniqs
-      @redis.hincrby mday('uniq'), @payload[:ip], 1
-    end
-
-    def store_daily_platforms
-      @redis.hset mday('platforms'), "#{@payload[:ip]}_#{@user_agent.platform}", @user_agent.platform
-    end
-
     def store_daily_browsers
-      @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}_#{@user_agent.version}", "#{@user_agent.browser} #{@user_agent.version}"
+      # @redis.hset mday('browsers'), "#{@payload[:ip]}_#{@user_agent.browser}_#{@user_agent.version}", "#{@user_agent.browser} #{@user_agent.version}"
+      # @redis.sadd mday('sbrowsers'), "#{@user_agent.browser} #{@user_agent.version}"
+      unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
+        @redis.hincrby mday('browsers'), "#{@user_agent.browser} #{@user_agent.version}", 1
+      end
     end
 
     # User activity

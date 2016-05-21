@@ -5,7 +5,7 @@ module Snapstats
   class EventLogger
 
     def initialize
-      @redis = Snapstats::redis
+      @redis = Snapstats.redis
     end
 
     def call name, started, finished, unique_id, payload
@@ -16,14 +16,15 @@ module Snapstats
       @user_agent = UserAgent.parse(@payload[:user_agent])
 
       store_tops
+      store_daily_platforms
+      store_daily_browsers
+
+      # Main method for uniq, depends for methods upthere
       store_uniq_client_ids
 
       store_cpm
       store_daily_activity
-      store_daily_uniqs
-
-      store_daily_platforms
-      store_daily_browsers
+      # store_daily_uniqs
 
       store_user_activity_table
       store_slowest_controller
