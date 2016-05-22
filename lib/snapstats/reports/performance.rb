@@ -1,6 +1,6 @@
 module Snapstats
   module Report
-    class Performance < Snapstats::Helpers::ReportBase
+    class Performance < Snapstats::Helpers::Base
       
       def self.data
         {

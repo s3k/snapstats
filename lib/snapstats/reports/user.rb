@@ -1,6 +1,6 @@
 module Snapstats
   module Report
-    class User < Snapstats::Helpers::ReportBase
+    class User < Snapstats::Helpers::Base
       
       def self.data
         {

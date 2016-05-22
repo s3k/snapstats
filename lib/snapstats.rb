@@ -3,20 +3,19 @@ require "snapstats/engine"
 require "snapstats/redis"
 
 # Helpers
-require "snapstats/helpers/redis"
-require "snapstats/helpers/report"
+require "snapstats/helpers/helper"
+require "snapstats/helpers/base"
 
 # Loggers
-require "event_logger/event_logger"
+require "snapstats/logger/ext"
+require "snapstats/logger/store_data"
+require "snapstats/logger"
 
 # Reports
 require "snapstats/reports/main"
 require "snapstats/reports/user"
 require "snapstats/reports/performance"
 
-# require "snapstats/model/main"
-# require "event_reader/event_reader"
-# require "snapstats/event_logger"
 
 module Snapstats
   
@@ -29,6 +28,7 @@ module Snapstats
   # 
 
 	def self.start opt={}
-    EventLogger.start opt
+    Snapstats.redis = opt[:redis]
+    Logger.start opt
   end
 end
