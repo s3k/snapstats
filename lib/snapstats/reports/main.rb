@@ -6,7 +6,7 @@
 # snaps:<ts>:cpd
 # snaps:<ts>:platforms
 # snaps:<ts>:browsers
-# snaps:<ts>:top:pathes
+# snaps:<ts>:pathes
 # snaps:<ts>:cpd_chart
 # 
 
@@ -22,7 +22,7 @@ module Snapstats
           
           platforms:  @redis.hgetall(mday("platforms")),
           browsers:   @redis.hgetall(mday("browsers")),
-          top_pathes: (@redis.zrevrangebyscore mday('top:pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 10])
+          top_pathes: (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 10])
         }
       end
 

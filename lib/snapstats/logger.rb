@@ -12,19 +12,15 @@ module Snapstats
       @payload[:render_time] = finished - started
       @user_agent = UserAgent.parse(@payload[:user_agent])
 
-      store_tops
-      store_daily_platforms
-      store_daily_browsers
-
-      # Main method for uniq, depends for methods upthere
-      store_uniq_client_ids
-
+      store_path_and_device
       store_cpm
       store_daily_activity
-      # store_daily_uniqs
 
       store_user_activity_table
       store_slowest_controller
+
+      # Main method for uniq, depends for methods upthere
+      store_uniq_client_ids
     end
 
     private
