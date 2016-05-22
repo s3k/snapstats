@@ -32,17 +32,17 @@ module Snapstats
 
     private
 
-    def mkey name
-      Snapstats.mkey name
-    end
+    # def mkey name
+    #   Snapstats.mkey name
+    # end
 
-    def mtime name
-      Snapstats.mtime name
-    end
+    # def mtime name
+    #   Snapstats.mtime name
+    # end
 
-    def mday name
-      Snapstats.mday name
-    end
+    # def mday name
+    #   Snapstats.mday name
+    # end
 
     def uniq_client_hash
       Digest::SHA1.hexdigest({

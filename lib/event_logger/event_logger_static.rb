@@ -7,7 +7,7 @@ module Snapstats
     def self.start opt={}
       # unless Thread.current[:is_started]
 
-        Snapstats.set_redis opt[:redis]
+        Snapstats.redis = opt[:redis]
 
         unless opt[:disable_logging] == true
           init_events opt
