@@ -39,9 +39,9 @@
 				
 				<% @controllers.each do |i| %>
 					<tr>
-						<td> <%= i.controller %> </td>
-						<td> <%= i.action %> </td>
-						<td><%= i.render_time %></td>
+						<td> <%= i[:controller] %> </td>
+						<td> <%= i[:action] %> </td>
+						<td><%= i[:render_time] %></td>
 					</tr>
 				<% end %>
 

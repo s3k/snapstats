@@ -47,21 +47,21 @@
 					<td>
 						Uniq visits
 					</td>
-					<td><%= @uniqs %></td>
+					<td><%= @daily_report[:uniqs] %></td>
 				</tr>
 
 				<tr>
 					<td>
 						Clicks per minute
 					</td>
-					<td><%= @report[:clicks_per_minute] %></td>
+					<td><%= @daily_report[:clicks_per_minute] %></td>
 				</tr>
 
 				<tr>
 					<td>
 						Clicks per day
 					</td>
-					<td><%= @report[:clicks_per_day] %></td>
+					<td><%= @daily_report[:clicks_per_day] %></td>
 				</tr>
 
 				<tr>
@@ -70,7 +70,7 @@
 					</th>
 					<th></th>
 				</tr>
-				<% @report[:top_pathes].each do |i| %>
+				<% @daily_report[:top_pathes].each do |i| %>
 					<tr>
 						<td><%= i.first %></td>
 						<td><%= i.last %></td>
@@ -89,7 +89,7 @@
 					</th>
 					<th></th>
 				</tr>
-				<% @report[:browsers].each do |k,v| %>
+				<% @daily_report[:browsers].each do |k,v| %>
 					<tr>
 						<td><%= k %></td>
 						<td><%= v %></td>
@@ -108,7 +108,7 @@
 					</th>
 					<th></th>
 				</tr>
-				<% @report[:platforms].each do |k, v| %>
+				<% @daily_report[:platforms].each do |k, v| %>
 					<tr>
 						<td><%= k %></td>
 						<td><%= v %></td>

@@ -30,18 +30,18 @@
 					<th>Browser</th>
 				</tr>
 				
-				<% @activity.sort_by{ |i| -i.date.to_i }.each do |i| %>
+				<% @activity.each do |i| %>
 				
 					<tr>
 						<td> 
 							<span class="limit-cell">
-								<%= i.path %> 
+								<%= i[:path] %> 
 							</span>
 						</td>
-						<td> <%= time_ago_in_words i.date %>  </td>
-						<td> <%= i.render_time %>  </td>
-						<td> <%= i.os %>  </td>
-						<td> <%= i.browser %> <%= i.version %>  </td>
+						<td> <%= time_ago_in_words i[:date] %>  </td>
+						<td> <%= i[:render_time] %>  </td>
+						<td> <%= i[:os] %>  </td>
+						<td> <%= i[:browser] %> <%= i[:version] %>  </td>
 					</tr>
 
 				<% end %>
