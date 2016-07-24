@@ -16,3 +16,4 @@ gemspec
 gem 'redis'
 gem 'useragent'
 gem 'virtus'
+gem 'rspec'
