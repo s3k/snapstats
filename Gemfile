@@ -17,4 +17,8 @@ gem 'rails'
 gem 'redis'
 gem 'useragent'
 gem 'virtus'
-gem 'rspec'
+
+group :test do
+  gem 'rspec'
+  gem 'fakeredis', :require => "fakeredis/rspec"
+end

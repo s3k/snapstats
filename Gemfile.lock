@@ -58,6 +58,8 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.11)
     erubis (2.7.0)
+    fakeredis (0.5.0)
+      redis (~> 3.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -141,6 +143,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fakeredis
   rails
   redis
   rspec

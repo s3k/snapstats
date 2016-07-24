@@ -6,6 +6,11 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
     before(:all) do
       @redis = Redis.new # default to localhost
+
+      # 
+      # 1. Create Redis Test Data
+      # 2. Cleanup Redis Test Data
+      #
     end
 
     it "fetch main report data" do
