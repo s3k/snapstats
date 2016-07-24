@@ -1,6 +1,6 @@
 module Snapstats
-  module Helpers
-    module Helper
+  module Helper
+    module Redis
   
       def mkey name
         "snaps:#{name}"

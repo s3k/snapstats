@@ -3,8 +3,8 @@ require "snapstats/engine"
 require "snapstats/redis"
 
 # Helpers
-require "snapstats/helpers/helper"
-require "snapstats/helpers/base"
+require "snapstats/helper/redis"
+# require "snapstats/helpers/base"
 
 # Loggers
 require "snapstats/logger/ext"
@@ -12,6 +12,7 @@ require "snapstats/logger/store_data"
 require "snapstats/logger"
 
 # Reports
+require "snapstats/reports/manager"
 require "snapstats/reports/main"
 require "snapstats/reports/user"
 require "snapstats/reports/performance"

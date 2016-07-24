@@ -12,14 +12,19 @@
 
 module Snapstats
   module Report
-    class Main < Snapstats::Helpers::Base
-      
+    class Main
+      include Snapstats::Helper::Redis
+
+      def initialize opt={}
+        @redis = opt[:db]
+      end
+
       def data
         {
           uniqs:              @redis.hlen(mday("uniq_client_ids")).to_i,
           clicks_per_minute:  @redis.hget(mday("cpm"), Time.now.beginning_of_minute.to_i).to_i,
           clicks_per_day:     @redis.get(mday("cpd")).to_i,
-          
+
           platforms:  @redis.hgetall(mday("platforms")),
           browsers:   @redis.hgetall(mday("browsers")),
           top_pathes: (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 10])

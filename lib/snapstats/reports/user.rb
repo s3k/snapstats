@@ -1,7 +1,12 @@
 module Snapstats
   module Report
-    class User < Snapstats::Helpers::Base
-      
+    class User
+      include Snapstats::Helper::Redis
+
+      def initialize opt={}
+        @redis = opt[:db]
+      end
+
       def data
         @redis.hgetall(mday("activity:users")).map do |uid, values|
           values = JSON.parse(values, :symbolize_names => true)

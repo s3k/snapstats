@@ -73,7 +73,7 @@
 				<% @daily_report[:top_pathes].each do |i| %>
 					<tr>
 						<td><%= i.first %></td>
-						<td><%= i.last %></td>
+						<td><%= i.last.to_i %></td>
 					</tr>
 				<% end %>
 			</table>

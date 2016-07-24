@@ -1,9 +1,13 @@
 module Snapstats
 
-  class Logger < Snapstats::Helpers::Base
-    
+  class Logger
     extend Snapstats::LoggerExt
+    include Snapstats::Helper::Redis
     include Snapstats::LoggerStoreData
+
+    def initialize opt={db: Snapstats.redis}
+      @redis = opt[:db]
+    end
 
     def call name, started, finished, unique_id, payload
       return nil if payload[:controller].scan(/^Snapstats/ui).present?
