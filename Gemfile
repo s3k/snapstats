@@ -20,5 +20,6 @@ gem 'virtus'
 
 group :test do
   gem 'rspec'
-  gem 'fakeredis', :require => "fakeredis/rspec"
+  gem 'pry'
+  gem 'mock_redis'
 end

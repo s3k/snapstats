@@ -1,24 +1,22 @@
 require 'spec_helper'
 require 'snapstats'
+require 'mock_redis'
+require 'pry'
 
 RSpec.describe Snapstats, "Snapstats lib logic" do
   context "fetch collected data" do
 
     before(:all) do
-      @redis = Redis.new # default to localhost
-
-      # 
-      # 1. Create Redis Test Data
-      # 2. Cleanup Redis Test Data
-      #
+      @redis = TestRedis.new
     end
 
     it "fetch main report data" do
-      report = Snapstats::Report::Main.new(db: @redis)
+      report = Snapstats::Report::Main.new(db: @redis.redis)
       data = report.data
 
+      # binding.pry
       expect(data).to be_a Hash
-      expect(data[:uniqs]).to be_a Integer
+      expect(data[:uniqs]).to eq 1
       expect(data[:clicks_per_day]).to be_a Integer
       expect(data[:platforms]).to be_a Hash
       expect(data[:browsers]).to be_a Hash
@@ -26,11 +24,10 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
     end
 
     it "fetch main report chart" do
-      report = Snapstats::Report::Main.new(db: @redis)
+      report = Snapstats::Report::Main.new(db: @redis.redis)
       chart = report.chart
-
       expect(chart).to be_a Array
-      expect(chart.first).to be_a Hash
+      # expect(chart.first).to be_a Hash
     end
 
   end
