@@ -8,7 +8,7 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
       @redis = Redis.new # default to localhost
     end
 
-    it "fetch main report" do
+    it "fetch main report data" do
       report = Snapstats::Report::Main.new(db: @redis)
       data = report.data
 
@@ -18,6 +18,14 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
       expect(data[:platforms]).to be_a Hash
       expect(data[:browsers]).to be_a Hash
       expect(data[:top_pathes]).to be_a Array
+    end
+
+    it "fetch main report chart" do
+      report = Snapstats::Report::Main.new(db: @redis)
+      chart = report.chart
+
+      expect(chart).to be_a Array
+      expect(chart.first).to be_a Hash
     end
 
   end
