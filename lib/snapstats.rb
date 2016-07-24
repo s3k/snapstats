@@ -1,3 +1,4 @@
+require 'pp'
 require 'digest/sha1'
 require "snapstats/engine"
 require "snapstats/redis"

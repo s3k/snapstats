@@ -141,6 +141,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  rails
   redis
   rspec
   snapstats!

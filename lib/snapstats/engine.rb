@@ -1,3 +1,4 @@
+require "rails"
 require "redis"
 require "useragent"
 require "virtus"
