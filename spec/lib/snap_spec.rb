@@ -32,4 +32,11 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
     end
 
   end
+
+  context "store collected data" do
+    it "store payload" do
+
+    end
+  end
+
 end
