@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'support/test_redis'
 require 'snapstats'
 require 'mock_redis'
 require 'pry'
