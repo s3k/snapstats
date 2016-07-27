@@ -9,7 +9,7 @@ require "snapstats/helper/redis"
 
 # Loggers
 require "snapstats/logger/ext"
-require "snapstats/logger/store_data"
+require "snapstats/logger/store"
 require "snapstats/logger"
 
 # Reports
@@ -29,7 +29,7 @@ module Snapstats
   # :disable_logging    => false 
   # 
 
-	def self.start opt={}
+  def self.start opt={}
     Snapstats.redis = opt[:redis]
     Logger.start opt
   end

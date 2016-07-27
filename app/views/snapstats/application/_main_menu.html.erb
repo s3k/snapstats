@@ -1,12 +1,12 @@
 <div class="container">
-	<ul class="menu pull-left">
-		<li <%= active_cat? :main %>> <%= link_to 'Daily report', root_path %> </li>
-		<li <%= active_cat? :user %>> <a href="#"><%= link_to 'Users', user_path %></a></li>
-		<li <%= active_cat? :performance %>> <a href="#"><%= link_to 'Performance', performance_path %></li>
-		<!-- <li <%= active_cat? :reports %>> <a href="#"><%= link_to 'Reports', performance_path %></li> -->
-	</ul>
+  <ul class="menu pull-left">
+    <li <%= active_cat? :main %>> <%= link_to 'Daily report', root_path %> </li>
+    <li <%= active_cat? :user %>> <a href="#"><%= link_to 'Users', user_path %></a></li>
+    <li <%= active_cat? :performance %>> <a href="#"><%= link_to 'Performance', performance_path %></li>
+    <!-- <li <%= active_cat? :reports %>> <a href="#"><%= link_to 'Reports', performance_path %></li> -->
+  </ul>
 
-  <div class="pull-right">
+  <div class="pull-right" style="display:none;">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <%= Date.current %>

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/test_redis'
 require 'snapstats'
 require 'mock_redis'
 require 'pry'
@@ -7,11 +8,12 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
   context "fetch collected data" do
 
     before(:all) do
-      @redis = TestRedis.new
+      @db = TestRedis.new
+      @db.create_test_data
     end
 
     it "fetch main report data" do
-      report = Snapstats::Report::Main.new(db: @redis.redis)
+      report = Snapstats::Report::Main.new(db: @db.redis)
       data = report.data
 
       # binding.pry
@@ -24,10 +26,10 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
     end
 
     it "fetch main report chart" do
-      report = Snapstats::Report::Main.new(db: @redis.redis)
+      report = Snapstats::Report::Main.new(db: @db.redis)
       chart = report.chart
       expect(chart).to be_a Array
-      # expect(chart.first).to be_a Hash
+      expect(chart.first).to be_a Hash
     end
 
   end
