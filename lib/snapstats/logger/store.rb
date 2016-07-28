@@ -53,11 +53,12 @@ module Snapstats
     def store_performance
       ftime = floor_time(@time_key, 10.minutes)
       render_time = @payload[:render_time]
+      rkey = mday('performance:max_render_time')
 
       # Set max time for key
-      #if @redis.zrange(mday('performance:max_render_time'), ftime, ftime).first.to_i < render_time.to_i
-        @redis.zadd mday('performance:max_render_time'), ftime, @payload[:render_time]
-      #end
+      if @redis.zrangebyscore(rkey, ftime, ftime).first.to_f < render_time.to_f
+        @redis.zadd rkey, ftime, @payload[:render_time]
+      end
     end
 
     def store_user_activity

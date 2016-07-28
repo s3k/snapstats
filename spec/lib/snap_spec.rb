@@ -28,6 +28,8 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
     it "fetch main report chart" do
       report = Snapstats::Report::Main.new(db: @db.redis)
+
+      pp report.chart.first
       expect(report.chart).to be_a Array
       expect(report.chart.first).to be_a Hash
     end
@@ -91,8 +93,10 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
       item = data.first
 
-      expect(item[:date]).to be_a String
-      expect(item[:value]).to eq "1"
+      expect(item[:date]).to be_a Integer
+      expect(item[:value]).to eq "0.009458"
+
+      pp data
     end
 
   end

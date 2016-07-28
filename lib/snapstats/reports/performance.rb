@@ -17,12 +17,9 @@ module Snapstats
       end
 
       def chart
-        # @redis.hgetall(mday("cpd_chart")).map{ |k,v| 
-        #   { date: k, value: v } 
-        # }
-
         @redis.zrevrangebyscore(mday("performance:max_render_time"), '+inf', '-inf', { withscores: true  }).map do |i|
-          { date: i.last, value: i.first }
+
+          { date: i.last.to_i, value: i.first }
         end
       end
 
