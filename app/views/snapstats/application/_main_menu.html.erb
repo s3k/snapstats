@@ -6,6 +6,10 @@
     <!-- <li <%= active_cat? :reports %>> <a href="#"><%= link_to 'Reports', performance_path %></li> -->
   </ul>
 
+  <div class="pull-right" style="font-weight: 400;">
+    Today <%= Date.current.strftime("%d %B") %>
+  </div>
+
   <div class="pull-right" style="display:none;">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
