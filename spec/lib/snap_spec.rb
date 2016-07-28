@@ -91,7 +91,7 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
       item = data.first
 
-      expect(item[:date]).to eq "1469728200"
+      expect(item[:date]).to be_a String
       expect(item[:value]).to eq "1"
     end
 

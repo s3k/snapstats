@@ -6,15 +6,18 @@ module Snapstats
     def initialize opt={}
       @redis = opt[:db]
       @payload = opt[:payload]
+      @time_key = Time.now.to_i
     end
 
     def call
       store_path_and_device
       store_cpm
-      store_daily_activity
+      # store_daily_activity
+      store_user_activity
 
       store_user_activity_table
       store_slowest_controller
+      store_performance
 
       # Main method for uniq, depends for methods upthere
       store_uniq_client_ids
@@ -27,8 +30,6 @@ module Snapstats
     end
 
     def store_daily_activity
-
-      time_key = Time.current.to_i
 
       rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
 
@@ -43,17 +44,27 @@ module Snapstats
         ip:    @payload[:ip],
         total: rt_hash.values.reduce(:+),
         email: @payload[:user_email],
-        date: time_key
+        date: @time_key
       }.to_json
 
-      @redis.zadd mday('activity'), time_key, value
+      @redis.zadd mday('activity'), @time_key, value
+    end
 
-      # add here links to users in sets like
+    def store_performance
+      ftime = floor_time(@time_key, 10.minutes)
+      render_time = @payload[:render_time]
 
+      # Set max time for key
+      #if @redis.zrange(mday('performance:max_render_time'), ftime, ftime).first.to_i < render_time.to_i
+        @redis.zadd mday('performance:max_render_time'), ftime, @payload[:render_time]
+      #end
+    end
+
+    def store_user_activity
       if @payload[:user_id].present? && @payload[:user_email].present?
 
         uvalue = {
-          ts:     time_key,
+          ts:     @time_key,
           path:   @payload[:path],
           total:  @payload[:render_time],
           os:     user_agent.platform,
@@ -62,7 +73,7 @@ module Snapstats
 
         }.to_json
 
-        @redis.zadd mday("activity:user:#{@payload[:user_id]}"), time_key, uvalue
+        @redis.zadd mday("activity:user:#{@payload[:user_id]}"), @time_key, uvalue
       end
     end
 

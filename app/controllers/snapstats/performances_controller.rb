@@ -7,7 +7,6 @@ module Snapstats
     end
 
     def show
-      # @controllers = Snapstats::EventReader::Performance.fetch_slowest_controllers
       @controllers = @report.slowest_controllers
     end
 
@@ -17,7 +16,7 @@ module Snapstats
     end
 
     def flat_chart
-      render json: Snapstats::EventReader::Activity.fetch_flat_chart
+      render json: @report.chart
     end
 
     private
