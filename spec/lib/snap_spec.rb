@@ -66,6 +66,35 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
       expect(data).to be_a Array
     end
 
+    #
+    # Performance page
+    #
+
+    it "fetch performance report" do
+      report = Snapstats::Report::Performance.new(db: @db.redis)
+      data = report.slowest_controllers
+
+      expect(data).to be_a Array
+
+      item = data.first
+
+      expect(item[:controller]).to eq "MainController"
+      expect(item[:action]).to eq "index"
+      expect(item[:render_time]).to be_a Float
+    end
+
+    it "fetch performance chart" do
+      report = Snapstats::Report::Performance.new(db: @db.redis)
+      data = report.chart
+
+      expect(data).to be_a Array
+
+      item = data.first
+
+      expect(item[:date]).to eq "1469728200"
+      expect(item[:value]).to eq "1"
+    end
+
   end
 
   context "store collected data" do
