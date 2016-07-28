@@ -6,7 +6,7 @@ module Snapstats
     def call name, started, finished, unique_id, payload
       return nil if payload[:controller].scan(/^Snapstats/ui).present?
 
-      @payload = payload
+      @payload = payload#.deep_symbolize_keys
       @payload[:render_time] = finished - started
 
       # Store to redis

@@ -72,7 +72,7 @@ module Snapstats
     end
 
     def store_path_and_device
-      
+
       @redis.zincrby mday('pathes'), 1, @payload[:path]
 
       unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
