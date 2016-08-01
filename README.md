@@ -10,9 +10,9 @@ How to install
 
 ```
 Snapstats::EventLogger.start({ 
-	:devise_model 		=> { :model => :user, :login_fields => [:email, :username] }, 
-	:redis 				=> { :host => 'localhost', :port => 6379 }, 
-	:disable_logging 	=> false 
+  :devise_model     => { :model => :user, :login_fields => [:email, :username] }, 
+  :redis        => { :host => 'localhost', :port => 6379 }, 
+  :disable_logging  => false 
 })
 ```
 
