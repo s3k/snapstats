@@ -31,8 +31,8 @@ $(document).ready(function () {
         }
 
         MG.data_graphic({
-          
-          data: data,          
+
+          data: data,
           full_width: true,
 
           height: self.torso.height * 3 / 2,

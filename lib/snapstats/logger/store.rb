@@ -12,7 +12,6 @@ module Snapstats
     def call
       store_path_and_device
       store_cpm
-      # store_daily_activity
       store_user_activity
 
       store_user_activity_table
@@ -27,29 +26,6 @@ module Snapstats
       @redis.hincrby mday("cpm"), Time.now.beginning_of_minute.to_i, 1
       @redis.incr mday("cpd")
       @redis.hincrby mday("cpd_chart"), floor_time(Time.now.to_i, 10.minutes), 1
-    end
-
-    def store_daily_activity
-
-      # DEPRECATED
-
-      rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
-
-      value = {
-        path:  @payload[:path],
-        ctrl:  @payload[:controller],
-        actn:  @payload[:action],
-        rntm:  rt_hash,
-        os:    user_agent.platform,
-        brwsr: user_agent.browser,
-        brver: user_agent.version.to_s,
-        ip:    @payload[:ip],
-        total: rt_hash.values.reduce(:+),
-        email: @payload[:user_email],
-        date: @time_key
-      }.to_json
-
-      @redis.zadd mday('activity'), @time_key, value
     end
 
     def store_performance
