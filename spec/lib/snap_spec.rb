@@ -24,6 +24,7 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
       expect(report.data[:platforms]["Macintosh"]).to eq "1"
       expect(report.data[:browsers]["Safari 9.1.2"]).to eq "1"
       expect(report.data[:top_pathes]).to be_a Array
+      expect(report.data[:top_pathes].first.first).to eq '/'
     end
 
     it "fetch main report chart" do

@@ -20,6 +20,10 @@ module Snapstats
       end
 
       def data
+        top_pathes = (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 20]).map do |path|
+          [URI(path[0]).path, path[1]]
+        end
+
         {
           uniqs:              @redis.hlen(mday("uniq_client_ids")).to_i,
           clicks_per_minute:  @redis.hget(mday("cpm"), Time.now.beginning_of_minute.to_i).to_i,
@@ -27,7 +31,7 @@ module Snapstats
 
           platforms:  @redis.hgetall(mday("platforms")),
           browsers:   @redis.hgetall(mday("browsers")),
-          top_pathes: (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 10])
+          top_pathes: top_pathes
         }
       end
 
