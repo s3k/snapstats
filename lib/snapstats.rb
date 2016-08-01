@@ -5,7 +5,6 @@ require "snapstats/redis"
 
 # Helpers
 require "snapstats/helper/redis"
-# require "snapstats/helpers/base"
 
 # Loggers
 require "snapstats/logger/ext"
@@ -20,14 +19,14 @@ require "snapstats/reports/performance"
 
 
 module Snapstats
-  
-  # 
+
+  #
   # Example params
-  # 
-  # :devise_model       => { :model => :user, :login_fields => [:email, :username] }, 
-  # :redis              => { :host => 'localhost', :port => 6379 }, 
-  # :disable_logging    => false 
-  # 
+  #
+  # :devise_model       => { :model => :user, :login_fields => [:email, :username] },
+  # :redis              => { :host => 'localhost', :port => 6379 },
+  # :disable_logging    => false
+  #
 
   def self.start opt={}
     Snapstats.redis = opt[:redis]
