@@ -19,8 +19,25 @@ module Snapstats
       def chart
         @redis.zrevrangebyscore(mday("performance:max_render_time"), '+inf', '-inf', { withscores: true  }).map do |i|
 
-          { date: i.last.to_i, value: i.first }
+          { date: i[1].to_i, value: i[0] }
         end
+      end
+
+      def chart_complex
+
+        legend = []
+
+        data = @redis.zrevrangebyscore(mday("performance:complex_render_time"), '+inf', '-inf', { withscores: true  }).map do |i|
+
+          dat = JSON.parse(i[0])
+          legend = dat.keys unless legend.present?
+
+          dat.map { |k, v|
+            { date: i[1].to_i, value: v }
+          }
+        end
+
+        { data: data.transpose, legend: legend }
       end
 
     end

@@ -31,6 +31,8 @@ module Snapstats
 
     def store_daily_activity
 
+      # DEPRECATED
+
       rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
 
       value = {
@@ -51,13 +53,18 @@ module Snapstats
     end
 
     def store_performance
+
+      rt_hash = @payload.keys.select{ |i| i.to_s.scan(/runtime/ui).present? }.reduce({}){ |sum, i| sum[i.to_s.gsub(/_runtime/ui, '').to_sym] = @payload[i].to_f.round(3); sum }
+
       ftime = floor_time(@time_key, 10.minutes)
       render_time = @payload[:render_time]
       rkey = mday('performance:max_render_time')
+      complex_key = mday('performance:complex_render_time')
 
       # Set max time for key
       if @redis.zrangebyscore(rkey, ftime, ftime).first.to_f < render_time.to_f
         @redis.zadd rkey, ftime, @payload[:render_time]
+        @redis.zadd complex_key, ftime, rt_hash.to_json
       end
     end
 

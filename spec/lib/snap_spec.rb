@@ -29,7 +29,6 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
     it "fetch main report chart" do
       report = Snapstats::Report::Main.new(db: @db.redis)
 
-      pp report.chart.first
       expect(report.chart).to be_a Array
       expect(report.chart.first).to be_a Hash
     end
@@ -95,8 +94,21 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
       expect(item[:date]).to be_a Integer
       expect(item[:value]).to eq "0.009458"
+    end
 
-      pp data
+    it "fetch performance complex chart" do
+      report = Snapstats::Report::Performance.new(db: @db.redis)
+      data = report.chart_complex
+
+      expect(data).to be_a Hash
+
+      legend = data[:legend]
+      expect(legend[0]).to eq "view"
+      expect(legend[1]).to eq "db"
+
+      graph_data = data[:data]
+      expect(graph_data).to be_a Array
+      expect(graph_data.first.first[:value]).to eq 8.447
     end
 
   end

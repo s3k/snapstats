@@ -11,8 +11,7 @@ module Snapstats
     end
 
     def chart
-      data = Snapstats::EventReader::Activity.fetch_all_chart_scale
-      render json: {data: data.values, legend: data.keys}
+      render json: @report.chart_complex
     end
 
     def flat_chart
