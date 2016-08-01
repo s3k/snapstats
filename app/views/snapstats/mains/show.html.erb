@@ -2,22 +2,22 @@
 
 <div class="container animated fadeIn">
 
-	<div class="panel panel-wgt">
-		<div class="panel-heading">
-			<h3 class="panel-title">Activity</h3>
+  <div class="panel panel-wgt">
+    <div class="panel-heading">
+      <h3 class="panel-title">Activity</h3>
 
-			<!-- <div class="pull-right chart-corner-btns"> 
-				<a class="btn btn-trigger active total-chart">5 min</a> 
-				<a class="btn btn-trigger total-chart">10 min</a> 
-				<a class="btn btn-trigger total-chart">30 min</a> 
-			</div> -->
+      <!-- <div class="pull-right chart-corner-btns"> 
+        <a class="btn btn-trigger active total-chart">5 min</a> 
+        <a class="btn btn-trigger total-chart">10 min</a> 
+        <a class="btn btn-trigger total-chart">30 min</a> 
+      </div> -->
 
-		</div>
-		<div class="panel-body">
-			<div class="loader center-block animated rotateIn">loading</div>
-			<div class="chart"></div>	
-		</div>
-	</div>
+    </div>
+    <div class="panel-body">
+      <div class="loader center-block animated rotateIn">loading</div>
+      <div class="chart"></div> 
+    </div>
+  </div>
 
 </div>
 
@@ -25,100 +25,100 @@
 
 <div class="container animated fadeIn">
 
-<!-- 	<div class="page-header">
-		<h1>Daily overview</h1>
-	</div>
+<!--  <div class="page-header">
+    <h1>Daily overview</h1>
+  </div>
  -->
-	<div class="row" style="margin-top: 10px;">
+  <div class="row" style="margin-top: 10px;">
 
-		<!-- Most visited pages today -->
+    <!-- Most visited pages today -->
 
-		<div class="col-lg-4">
-			<table class="table-round">
+    <div class="col-lg-4">
+      <table class="table-round">
 
-				<tr>
-					<th>
-						Common info
-					</th>
-					<th></th>
-				</tr>
+        <tr>
+          <th>
+            Common info
+          </th>
+          <th></th>
+        </tr>
 
-				<tr>
-					<td>
-						Uniq visits
-					</td>
-					<td><%= @daily_report[:uniqs] %></td>
-				</tr>
+        <tr>
+          <td>
+            Uniq visits
+          </td>
+          <td><%= @daily_report[:uniqs] %></td>
+        </tr>
 
-				<tr>
-					<td>
-						Clicks per minute
-					</td>
-					<td><%= @daily_report[:clicks_per_minute] %></td>
-				</tr>
+        <tr>
+          <td>
+            Clicks per minute
+          </td>
+          <td><%= @daily_report[:clicks_per_minute] %></td>
+        </tr>
 
-				<tr>
-					<td>
-						Clicks per day
-					</td>
-					<td><%= @daily_report[:clicks_per_day] %></td>
-				</tr>
+        <tr>
+          <td>
+            Clicks per day
+          </td>
+          <td><%= @daily_report[:clicks_per_day] %></td>
+        </tr>
 
-				<tr>
-					<th>
-						Most visited pages
-					</th>
-					<th></th>
-				</tr>
-				<% @daily_report[:top_pathes].each do |i| %>
-					<tr>
-						<td><%= i.first %></td>
-						<td><%= i.last.to_i %></td>
-					</tr>
-				<% end %>
-			</table>
-		</div>
+        <tr>
+          <th>
+            Most visited pages
+          </th>
+          <th></th>
+        </tr>
+        <% @daily_report[:top_pathes].each do |i| %>
+          <tr>
+            <td><%= i.first %></td>
+            <td><%= i.last.to_i %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
 
-		<!-- Browsers today -->
+    <!-- Browsers today -->
 
-		<div class="col-lg-4">
-			<table class="table-round">
-				<tr>
-					<th>
-						Browsers
-					</th>
-					<th></th>
-				</tr>
-				<% @daily_report[:browsers].each do |k,v| %>
-					<tr>
-						<td><%= k %></td>
-						<td><%= v %></td>
-					</tr>
-				<% end %>
-			</table>
-		</div>
+    <div class="col-lg-4">
+      <table class="table-round">
+        <tr>
+          <th>
+            Browsers
+          </th>
+          <th></th>
+        </tr>
+        <% @daily_report[:browsers].each do |k,v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
 
-		<!-- Devices today -->
+    <!-- Devices today -->
 
-		<div class="col-lg-4">
-			<table class="table-round">
-				<tr>
-					<th>
-						Devices
-					</th>
-					<th></th>
-				</tr>
-				<% @daily_report[:platforms].each do |k, v| %>
-					<tr>
-						<td><%= k %></td>
-						<td><%= v %></td>
-					</tr>
-				<% end %>
-			</table>
-		</div>
+    <div class="col-lg-4">
+      <table class="table-round">
+        <tr>
+          <th>
+            Devices
+          </th>
+          <th></th>
+        </tr>
+        <% @daily_report[:platforms].each do |k, v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
 
 
-	</div>
+  </div>
 
 </div>
 
