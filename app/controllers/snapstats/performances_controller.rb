@@ -10,11 +10,11 @@ module Snapstats
       @controllers = @report.slowest_controllers
     end
 
-    def chart
+    def chart_complex
       render json: @report.chart_complex
     end
 
-    def flat_chart
+    def chart
       render json: @report.chart
     end
 

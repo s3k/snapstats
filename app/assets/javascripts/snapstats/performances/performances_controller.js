@@ -2,8 +2,8 @@ $(document).ready(function () {
   ({
 
     when_cat        : "li.section-performance",
-    data_path       : ($(location).attr('pathname') + '/chart').replace('//', '/'),
-    flat_data_path  : ($(location).attr('pathname') + '/flat_chart').replace('//', '/'),
+    data_path       : ($(location).attr('pathname') + '/chart_complex').replace('//', '/'),
+    flat_data_path  : ($(location).attr('pathname') + '/chart').replace('//', '/'),
 
     torso : { width : 375, height : 200, right : 20 },
 
