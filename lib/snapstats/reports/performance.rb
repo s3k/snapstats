@@ -37,7 +37,7 @@ module Snapstats
           }
         end
 
-        { data: data.transpose, legend: legend }
+        { data: data.select{ |i| i.count == legend.count }.transpose, legend: legend }
       end
 
     end
