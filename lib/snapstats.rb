@@ -32,4 +32,15 @@ module Snapstats
     Snapstats.redis = opt[:redis]
     Logger.start opt
   end
+
+  #
+  # Backward compatibility
+  #
+
+  module EventLogger
+    def self.start opt={}
+      ::Snapstats.start opt
+    end
+  end
+
 end
