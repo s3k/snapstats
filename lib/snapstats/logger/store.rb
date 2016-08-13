@@ -68,7 +68,7 @@ module Snapstats
 
     def store_path_and_device
 
-      @redis.zincrby mday('pathes'), 1, @payload[:path]
+      @redis.zincrby mday('pathes'), 1, URI(@payload[:path]).path rescue "Incorrect path"
 
       unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
         @redis.hincrby mday('platforms'), user_agent.platform, 1

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    snapstats (1.0.0)
+    snapstats (1.0.0.pre.rc1)
       rails
       redis
       useragent

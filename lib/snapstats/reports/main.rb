@@ -21,7 +21,7 @@ module Snapstats
 
       def data
         top_pathes = (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 20]).map do |path|
-          [URI(path[0]).path, path[1]]
+          [path[0], path[1]]
         end
 
         {

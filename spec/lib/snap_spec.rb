@@ -46,7 +46,7 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
 
       expect(item[:email]).to eq "admin@admin.local"
       expect(item[:date]).to be_a Time
-      expect(item[:path]).to eq "/"
+      expect(item[:path]).to eq "/?param=test"
       expect(item[:user_id]).to eq "1"
     end
 
