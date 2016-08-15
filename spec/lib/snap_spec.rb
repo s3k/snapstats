@@ -21,8 +21,8 @@ RSpec.describe Snapstats, "Snapstats lib logic" do
       expect(report.data).to be_a Hash
       expect(report.data[:uniqs]).to eq 1
       expect(report.data[:clicks_per_day]).to eq 1
-      expect(report.data[:platforms]["Macintosh"]).to eq "1"
-      expect(report.data[:browsers]["Safari 9.1.2"]).to eq "1"
+      expect(report.data[:platforms][0][1]).to eq "1"
+      expect(report.data[:browsers][0][1]).to eq "1"
       expect(report.data[:top_pathes]).to be_a Array
       expect(report.data[:top_pathes].first.first).to eq '/'
     end

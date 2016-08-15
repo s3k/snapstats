@@ -89,10 +89,10 @@
           </th>
           <th></th>
         </tr>
-        <% @daily_report[:browsers].each do |k,v| %>
+        <% @daily_report[:browsers].each do |i| %>
           <tr>
-            <td><%= k %></td>
-            <td><%= v %></td>
+            <td><%= i.first %></td>
+            <td><%= i.last %></td>
           </tr>
         <% end %>
       </table>
@@ -108,10 +108,10 @@
           </th>
           <th></th>
         </tr>
-        <% @daily_report[:platforms].each do |k, v| %>
+        <% @daily_report[:platforms].each do |i| %>
           <tr>
-            <td><%= k %></td>
-            <td><%= v %></td>
+            <td><%= i.first %></td>
+            <td><%= i.last %></td>
           </tr>
         <% end %>
       </table>
