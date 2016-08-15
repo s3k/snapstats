@@ -11,7 +11,7 @@ module Snapstats
         @redis.hgetall(mday("activity:users")).map do |uid, values|
           values = JSON.parse(values, :symbolize_names => true)
           { email: values[:email], date: Time.at(values[:ts].to_i), path: values[:path], user_id: uid }
-        end
+        end.sort_by{|i| i[:date]}.reverse
       end
 
       def user_data user_id, from='+inf', to='-inf'
