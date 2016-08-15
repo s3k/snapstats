@@ -29,8 +29,8 @@ module Snapstats
           clicks_per_minute:  @redis.hget(mday("cpm"), Time.now.beginning_of_minute.to_i).to_i,
           clicks_per_day:     @redis.get(mday("cpd")).to_i,
 
-          platforms:  @redis.hgetall(mday("platforms")).sort.reverse,
-          browsers:   @redis.hgetall(mday("browsers")).sort.reverse,
+          platforms:  @redis.hgetall(mday("platforms")).sort_by{|k,v|v}.reverse,
+          browsers:   @redis.hgetall(mday("browsers")).sort_by{|k,v|v}.reverse,
           top_pathes: top_pathes
         }
       end

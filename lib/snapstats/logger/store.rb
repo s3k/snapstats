@@ -71,7 +71,9 @@ module Snapstats
       @redis.zincrby mday('pathes'), 1, URI(@payload[:path]).path rescue "Incorrect path"
 
       unless @redis.hexists(mday('uniq_client_ids'), uniq_client_hash)
-        @redis.hincrby mday('platforms'), user_agent.platform, 1
+        platform_name = user_agent.platform.present? ? user_agent.platform : 'unknown'
+
+        @redis.hincrby mday('platforms'), platform_name, 1
         @redis.hincrby mday('browsers'), "#{user_agent.browser} #{user_agent.version}", 1
       end
 
