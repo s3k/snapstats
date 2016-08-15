@@ -20,7 +20,7 @@ module Snapstats
       end
 
       def data
-        top_pathes = (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 20]).map do |path|
+        top_pathes = (@redis.zrevrangebyscore mday('pathes'), "+inf", "-inf", :with_scores => true, limit: [0, 10]).map do |path|
           [path[0], path[1]]
         end
 
@@ -29,8 +29,8 @@ module Snapstats
           clicks_per_minute:  @redis.hget(mday("cpm"), Time.now.beginning_of_minute.to_i).to_i,
           clicks_per_day:     @redis.get(mday("cpd")).to_i,
 
-          platforms:  @redis.hgetall(mday("platforms")),
-          browsers:   @redis.hgetall(mday("browsers")),
+          platforms:  @redis.hgetall(mday("platforms")).sort_by{|k,v| k}.to_h,
+          browsers:   @redis.hgetall(mday("browsers")).sort_by{|k,v| k}.to_h,
           top_pathes: top_pathes
         }
       end
