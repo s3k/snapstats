@@ -6,7 +6,8 @@ How to install
 
 1. Add in Gemfile `gem 'snapstats'`
 2. In your routes.rb add `mount Snapstats::Engine, :at => '/snap' `
-3. Create `initializers/snapstats.rb` and add params
+3. Install and start your Redis server (http://redis.io/topics/quickstart)
+4. Create `initializers/snapstats.rb` and add params
 
 ```
 Snapstats::EventLogger.start({ 
